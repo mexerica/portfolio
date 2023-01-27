@@ -5,6 +5,7 @@ import clock from '../img/clock.png';
 import terminal from '../img/terminal.png';
 import calculator from '../img/calculator.png';
 import Note from '../apps/notepad';
+import Calc from '../apps/calculator';
 
 const Bottom = styled.div`
     position:fixed;
@@ -76,7 +77,7 @@ function Home() {
                 <img src={calculator} alt="this is terminal" width={40} height={40}/>
             </Images>
             <Window></Window> 
-            <Note/>
+            <Calc/>
         </>
     );
 }
