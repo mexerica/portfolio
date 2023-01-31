@@ -4,8 +4,12 @@ import paint from '../img/paint.PNG';
 import clock from '../img/clock.png';
 import terminal from '../img/terminal.png';
 import calculator from '../img/calculator.png';
+import file from "../img/file.png";
+import photoshop from "../img/photoshop.png";
 import Note from '../apps/notepad';
+import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
+import Clock from '../apps/clock';
 
 const Bottom = styled.div`
     position:fixed;
@@ -75,9 +79,11 @@ function Home() {
                 <img src={clock} alt="this is clock" width={40} height={40}/>
                 <img src={terminal} alt="this is terminal" width={40} height={40}/>
                 <img src={calculator} alt="this is terminal" width={40} height={40}/>
+                <img src={file} alt="this is file" width={40} height={40}/>
+                <img src={photoshop} alt="this is file" width={40} height={40}/>
             </Images>
             <Window></Window> 
-            <Calc/>
+            <Note/>
         </>
     );
 }
