@@ -10,6 +10,7 @@ import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
 import Clock from '../apps/clock';
+import Paint from '../apps/paint';
 
 const Bottom = styled.div`
     position:fixed;
@@ -83,7 +84,7 @@ function Home() {
                 <img src={photoshop} alt="this is file" width={40} height={40}/>
             </Images>
             <Window></Window> 
-            <Note/>
+            <Paint/>
         </>
     );
 }
