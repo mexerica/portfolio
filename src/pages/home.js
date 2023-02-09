@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React, {useState} from 'react'
 import notepad from '../img/notepad.PNG';
 import paint from '../img/paint.PNG';
 import clock from '../img/clock.png';
@@ -6,11 +7,13 @@ import terminal from '../img/terminal.png';
 import calculator from '../img/calculator.png';
 import file from "../img/file.png";
 import photoshop from "../img/photoshop.png";
+import folder from "../img/folder.png";
 import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
 import Clock from '../apps/clock';
 import Paint from '../apps/paint';
+import Folder from '../apps/folder';
 
 const Bottom = styled.div`
     position:fixed;
@@ -67,24 +70,30 @@ const ExitBtn = styled.div`
     }
 `
 
-//const date = new Date;
-//var time = date.getHours() + ":" + date.getMinutes();
-
 function Home() {
+    const [app, setApp] = useState("calc");
     return (
         <>
             <Bottom><Button>Start</Button></Bottom> 
             <Images>
-                <img src={notepad} alt="this is notepad" width={40} height={40}/>
-                <img src={paint} alt="this is paint" width={40} height={40}/>
-                <img src={clock} alt="this is clock" width={40} height={40}/>
+                <img src={notepad} onClick={() => {setApp("note")}} alt="this is notepad" width={40} height={40}/>
+                <img src={paint} onClick={() => {setApp("paint")}} alt="this is paint" width={40} height={40}/>
+                <img src={clock} onClick={() => {setApp("clock")}} alt="this is clock" width={40} height={40}/>
                 <img src={terminal} alt="this is terminal" width={40} height={40}/>
-                <img src={calculator} alt="this is terminal" width={40} height={40}/>
+                <img src={calculator} onClick={() => {setApp("calc")}} alt="this is terminal" width={40} height={40}/>
                 <img src={file} alt="this is file" width={40} height={40}/>
-                <img src={photoshop} alt="this is file" width={40} height={40}/>
+                <img src={photoshop} alt="this is phothoshop" width={40} height={40}/>
+                <img src={folder} onClick={() => {setApp("folder")}} alt="this is folder" width={40} height={40}/>
             </Images>
             <Window></Window> 
-            <Paint/>
+            {
+                (app == "paint") ? <Paint/> :  
+                (app == "calc") ? <Calc/> :
+                (app == "clock") ? <Clock/> :  
+                (app == "note") ? <Note/> :
+                (app == "folder") ? <Folder/> :
+                <PDF/>
+            }
         </>
     );
 }
