@@ -4,42 +4,88 @@ import React, { useState, useRef, useEffect } from 'react'
 const Quadro = styled.div`
     position:fixed;
     color:black;
+    border: 5px solid;
 `
 
-function Painting(canvasRef, canvasX, canvasY){
-    const draw = ctx => {
-        ctx.fillStyle = '#000000'
-        ctx.beginPath()
-        ctx.arc(canvasX, canvasY, 20, 0, 2*Math.PI)
-        ctx.fill()
+const PaintButtons = styled.div`
+    position:fixed;
+    top:90px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1px;
+`
+
+function setColor(lineColor,setLineColor){
+    switch(lineColor){
+        case "black": setLineColor("green"); break;
+        case "green": setLineColor("blue"); break;
+        case "blue": setLineColor("red"); break;
+        case "red": setLineColor("yellow"); break;
+        default: setLineColor("black"); break;
     }
-      
+}
+
+function clearCanvas(canvasRef){
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function Paint() {
+    const canvasRef = useRef(null);
+    const ctxRef = useRef(null);
+    const [isDrawing, setIsDrawing] = useState(false);
+    const [lineWidth, setLineWidth] = useState(5);
+    const [lineColor, setLineColor] = useState("black");
+    const [lineOpacity, setLineOpacity] = useState(0.1);
+    
     useEffect(() => {
-        const canvas = canvasRef.current
-        const context = canvas.getContext('2d')
-        draw(context)
-    }, [draw])
-}
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.globalAlpha = lineOpacity;
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 5;
+      ctxRef.current = ctx;
+    }, [lineColor, lineOpacity, lineWidth]);
+    
+    const startDrawing = (e) => {
+      ctxRef.current.beginPath();
+      ctxRef.current.moveTo(
+        e.nativeEvent.offsetX, 
+        e.nativeEvent.offsetY
+      );
+      setIsDrawing(true);
+    };
+    
+    const endDrawing = () => {
+      ctxRef.current.closePath();
+      setIsDrawing(false);
+    };
+    
+    const draw = (e) => {
+      if (!isDrawing) {
+        return;
+      }
+      ctxRef.current.lineTo(
+        e.nativeEvent.offsetX, 
+        e.nativeEvent.offsetY
+      );
+        
+      ctxRef.current.stroke();
+    };
 
-
-
-const Paint = props => {
-    const canvasRef = useRef(null)
-    const [canvasX, setCanvasX] = useState(20);
-    const [canvasY, setCanvasY] = useState(20);
-    //const canvasX = useRef(20)
-    //const canvasY = useRef(20)
-    document.addEventListener('keyup', function(event) {
-        switch(event.key){
-            case "ArrowRight": setCanvasX(canvasX + 5); break;
-            case "ArrowLeft": setCanvasX(canvasX - 5); break;
-            case "ArrowUp": setCanvasY(canvasY - 5); break;
-            case "ArrowDown": setCanvasY(canvasY + 5); break;
-            default : break;
-        }
-    });
-    setInterval(Painting(canvasRef, canvasX, canvasY), 2000);
-    return <Quadro><canvas ref={canvasRef} {...props}/></Quadro>
-}
-
-export default Paint
+    return (
+      <>
+        <PaintButtons>
+            <button onClick={() => {setColor(lineColor,setLineColor)}}>ChangeColor</button>
+            <button onClick={() => {setLineColor("white")}}>Erasor</button>
+            <button onClick={() => {clearCanvas(canvasRef)}}>Reset</button>
+        </PaintButtons>
+        <Quadro><canvas ref={canvasRef} onMouseDown={startDrawing} onMouseUp={endDrawing} onMouseMove={draw} height="400" width="400"/></Quadro>
+      </>
+    );
+  }
+    
+  export default Paint;
