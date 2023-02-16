@@ -9,18 +9,18 @@ const ButtonsCalc = styled.div`
     bottom: 75px;
 `
 const Buttons = styled.div`
-    width: 60px;
+    width: 50px;
     padding: 25px 50px;
     text-align:center;
     font-size: 14px;
-    background-color:black;
-    border: 10px 10px;
+    background-color: white;
+    color: #0096ff;
+    border: 2px solid black;
     border-radius: 24px;
     appearance: none;
     cursor: pointer;
     :hover {
-        background-color: white;
-        color: black;
+        background-color: black;
     }
 `
 
@@ -31,6 +31,7 @@ const Result = styled.div`
     font-size: 80px;
 }
 `
+
 let operation = "none"
 let result = ""
 let hascomma = false
@@ -58,8 +59,7 @@ function setValue(setX, x, y){
         else if (x != "0") newX = x + y
         else newX = y
     }
-    setX(newX)
-    //console.log(x.includes("."))
+    if (newX < 9999999999) setX(newX);
 }
 
 function Calc() { 

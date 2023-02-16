@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react'
 
 const Quadro = styled.div`
     position:fixed;
+    background-color:white;
     color:black;
     border: 5px solid;
 `
@@ -21,6 +22,7 @@ function setColor(lineColor,setLineColor){
         case "green": setLineColor("blue"); break;
         case "blue": setLineColor("red"); break;
         case "red": setLineColor("yellow"); break;
+        case "yellow": setLineColor("purple"); break;
         default: setLineColor("black"); break;
     }
 }

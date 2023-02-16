@@ -1,9 +1,12 @@
 import Home from './pages/home';
 import styled from 'styled-components';
+import XP from "./img/windowxp.jpeg";
 
 const AppDiv = styled.div`
+  background-image: url(${XP});
+  background-repeat: no-repeat;
+  background-size: 2000px 700px;
   height: 100vh;
-  background: black;
   display: flex;
   justify-content: center;
   align-items: center;

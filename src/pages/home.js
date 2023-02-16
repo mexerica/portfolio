@@ -54,7 +54,7 @@ const Images = styled.div`
 const Window = styled.div`
     height: 500px;
     width: 500px;
-    background-color: white;
+    background-color: #faf4e4;
     border: 15px solid blue;
 `
 
