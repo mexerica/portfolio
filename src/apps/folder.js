@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState} from 'react';
 import folder from "../img/folder.png";
 import gmail from "../img/gmail.png";
 import github from "../img/github.png";
@@ -10,6 +10,7 @@ import js from "../img/js.png";
 import node from "../img/node.png";
 import react from "../img/react.png";
 import lua from "../img/lua.png";
+import curriculo from "../data/curriculo.pdf";
 
 const Folders = styled.div`
     position:fixed;
@@ -36,11 +37,13 @@ function Folder(){
             {
                 (path == "home") ?  
                     <>
-                        <AFolder onClick={() => {}}>
-                            <img src={folder} alt="a folder" width={120} height={120}/>
-                            <h1>Sobre</h1>
-                        </AFolder>
-                        <AFolder onClick={() => {}}>
+                        <a href={curriculo} download>
+                            <AFolder>
+                                <img src={folder} alt="a folder" width={120} height={120}/>
+                                <h1>Sobre</h1>
+                            </AFolder>
+                        </a>
+                        <AFolder onClick={() => {setPath("projetos")}}>
                             <img src={folder} alt="a folder" width={120} height={120}/>
                             <h1>Projetos</h1>
                         </AFolder>
@@ -142,9 +145,31 @@ function Folder(){
                             </a>
                         </AFolder>
                     </>
-                :
-                <>
-                </>
+                : 
+                    <>
+                        <AFolder onClick={() => {setPath("home")}}>
+                            <img src={folder} alt="a folder" width={120} height={120}/>
+                            <h1>Voltar</h1>
+                        </AFolder>
+                        <AFolder>
+                            <a href="https://chip-oito.vercel.app/">
+                                <img src={folder} alt="a folder" width={120} height={120}/>
+                                <h1>CHIP-OITO</h1>
+                            </a>
+                        </AFolder>
+                        <AFolder>
+                            <a href="https://github.com/mexerica/nedankinde">
+                                <img src={folder} alt="a folder" width={120} height={120}/>
+                                <h1>Nedankinde</h1>
+                            </a>
+                        </AFolder>
+                        <AFolder>
+                            <a href="https://github.com/mexerica/Android-Studio-project">
+                                <img src={folder} alt="a folder" width={120} height={120}/>
+                                <h1>Android Studio</h1>
+                            </a>
+                        </AFolder>
+                    </>
             }
         </Folders>
     );
