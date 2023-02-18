@@ -24,11 +24,24 @@ const Buttons = styled.div`
     }
 `
 
+const Red = styled.div`
+    color: #e32636;
+`
+
+const Border = styled.div`
+    position:fixed;
+    top: 77px;
+    background-color:white;
+    border: 2px solid black;
+    width: 450px;
+    height: 45px;
+`
+
 const Result = styled.div`
     position:fixed;
     color:black;
-    top: 50px;
-    font-size: 80px;
+    top: 75px;
+    font-size: 40px;
 }
 `
 
@@ -59,13 +72,14 @@ function setValue(setX, x, y){
         else if (x != "0") newX = x + y
         else newX = y
     }
-    if (newX < 9999999999) setX(newX);
+    if (newX < 99999999999999999) setX(newX);
 }
 
 function Calc() { 
     const [x, setX] = useState("0");
     return (
         <>
+            <Border></Border>
             <Result>{x}</Result>
             <ButtonsCalc>
                 <Buttons onClick={() => {setValue(setX, x, "0")}}>0</Buttons>
@@ -79,12 +93,12 @@ function Calc() {
                 <Buttons onClick={() => {setValue(setX, x, "8")}}>8</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "9")}}>9</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, ".")}}>,</Buttons>
-                <Buttons onClick={() => {setX(0)}}>ac</Buttons>
-                <Buttons onClick={() => {setValue(setX,x,"+")}}>+</Buttons>
-                <Buttons onClick={() => {setValue(setX,x,"-")}}>-</Buttons>
-                <Buttons onClick={() => {setValue(setX,x,"*")}}>*</Buttons>
-                <Buttons onClick={() => {setValue(setX,x,"/")}}>/</Buttons>
-                <Buttons onClick={() => {setValue(setX,x,"=")}}>=</Buttons>
+                <Buttons onClick={() => {setX(0)}}><Red>AC</Red></Buttons>
+                <Buttons onClick={() => {setValue(setX,x,"+")}}><Red>+</Red></Buttons>
+                <Buttons onClick={() => {setValue(setX,x,"-")}}><Red>-</Red></Buttons>
+                <Buttons onClick={() => {setValue(setX,x,"*")}}><Red>*</Red></Buttons>
+                <Buttons onClick={() => {setValue(setX,x,"/")}}><Red>/</Red></Buttons>
+                <Buttons onClick={() => {setValue(setX,x,"=")}}><Red>=</Red></Buttons>
         </ButtonsCalc>
         </>
     );

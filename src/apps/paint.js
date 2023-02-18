@@ -12,19 +12,26 @@ const PaintButtons = styled.div`
     position:fixed;
     top:90px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1px;
 `
 
+function setSize(lineWidth,setLineWidth){
+    if (lineWidth < 50) setLineWidth(lineWidth + 5);
+    else setLineWidth(5);
+}
+
 function setColor(lineColor,setLineColor){
-    switch(lineColor){
-        case "black": setLineColor("green"); break;
-        case "green": setLineColor("blue"); break;
-        case "blue": setLineColor("red"); break;
-        case "red": setLineColor("yellow"); break;
-        case "yellow": setLineColor("purple"); break;
-        default: setLineColor("black"); break;
-    }
+  switch(lineColor){
+      case "black": setLineColor("green"); break;
+      case "green": setLineColor("blue"); break;
+      case "blue": setLineColor("red"); break;
+      case "red": setLineColor("yellow"); break;
+      case "yellow": setLineColor("purple"); break;
+      case "purple": setLineColor("gray"); break;
+      case "gray": setLineColor("brown"); break;
+      default: setLineColor("black"); break;
+  }
 }
 
 function clearCanvas(canvasRef){
@@ -48,7 +55,7 @@ function Paint() {
       ctx.lineJoin = "round";
       ctx.globalAlpha = lineOpacity;
       ctx.strokeStyle = lineColor;
-      ctx.lineWidth = 5;
+      ctx.lineWidth = lineWidth;
       ctxRef.current = ctx;
     }, [lineColor, lineOpacity, lineWidth]);
     
@@ -81,7 +88,8 @@ function Paint() {
     return (
       <>
         <PaintButtons>
-            <button onClick={() => {setColor(lineColor,setLineColor)}}>ChangeColor</button>
+            <button onClick={() => {setColor(lineColor,setLineColor)}}>{lineColor}</button>
+            <button onClick={() => {setSize(lineWidth,setLineWidth)}}>{lineWidth}</button>
             <button onClick={() => {setLineColor("white")}}>Erasor</button>
             <button onClick={() => {clearCanvas(canvasRef)}}>Reset</button>
         </PaintButtons>
