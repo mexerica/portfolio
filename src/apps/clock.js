@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import clock from '../img/clockbase.png';
 import ponteiro from '../img/ponteiro.png';
 import ponteiro2 from '../img/ponteiro2.png';
+import ponteiro3 from '../img/ponteiro3.png';
 import React, {useState} from 'react';
 
 //const date = new Date;
@@ -47,7 +48,7 @@ function Clock() {
         <>
             <TicTac><img src={clock} alt="clockapp" width={480} height={480}/></TicTac>
             <PointerHour><img src={ponteiro} alt="horas" width={96} height={96} seconds={60} /></PointerHour>
-            <PointerMinutes><img src={ponteiro} alt="minutos" width={96} height={96} seconds={60} /></PointerMinutes>
+            <PointerMinutes><img src={ponteiro3} alt="minutos" width={96} height={96} seconds={60} /></PointerMinutes>
             <PointerSeconds><img src={ponteiro2} alt="segundos" width={96} height={96} seconds={60} /></PointerSeconds>
         </>
     );

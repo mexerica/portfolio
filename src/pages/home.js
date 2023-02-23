@@ -8,12 +8,14 @@ import calculator from '../img/calculator.png';
 import file from "../img/file.png";
 import photoshop from "../img/photoshop.png";
 import folder from "../img/folder.png";
+import tictactoe from "../img/tictactoe.png";
 import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
 import Clock from '../apps/clock';
 import Paint from '../apps/paint';
 import Folder from '../apps/folder';
+import Tictactoe from "../apps/tictactoe";
 
 const Bottom = styled.div`
     position:fixed;
@@ -84,6 +86,7 @@ function Home() {
                 <img src={file} alt="this is file" width={40} height={40}/>
                 <img src={photoshop} alt="this is phothoshop" width={40} height={40}/>
                 <img src={folder} onClick={() => {setApp("folder")}} alt="this is folder" width={40} height={40}/>
+                <img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
             </Images>
             <Window></Window> 
             {
@@ -92,6 +95,7 @@ function Home() {
                 (app == "clock") ? <Clock/> :  
                 (app == "note") ? <Note/> :
                 (app == "folder") ? <Folder/> :
+                (app == "tictactoe") ? <Tictactoe/> :
                 <PDF/>
             }
         </>
