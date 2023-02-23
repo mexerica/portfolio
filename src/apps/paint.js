@@ -12,9 +12,11 @@ const PaintButtons = styled.div`
     position:fixed;
     top:90px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1px;
 `
+
+let img;
 
 function setSize(lineWidth,setLineWidth){
     if (lineWidth < 50) setLineWidth(lineWidth + 5);
@@ -38,6 +40,17 @@ function clearCanvas(canvasRef){
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function saveImg(canvasRef){
+  let element = document.createElement('a');
+  element.setAttribute('download', 'CanvasAsImage.png');
+  const canvas = canvasRef.current;
+  canvas.toBlob(function(blob) {
+    let url = URL.createObjectURL(blob);
+    element.setAttribute('href', url);
+    element.click();
+  });
 }
 
 function Paint() {
@@ -92,6 +105,7 @@ function Paint() {
             <button onClick={() => {setSize(lineWidth,setLineWidth)}}>{lineWidth}</button>
             <button onClick={() => {setLineColor("white")}}>Erasor</button>
             <button onClick={() => {clearCanvas(canvasRef)}}>Reset</button>
+            <button onClick={() => {saveImg(canvasRef)}}>Save</button>
         </PaintButtons>
         <Quadro><canvas ref={canvasRef} onMouseDown={startDrawing} onMouseUp={endDrawing} onMouseMove={draw} height="400" width="400"/></Quadro>
       </>

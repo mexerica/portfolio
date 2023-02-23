@@ -40,17 +40,21 @@ function updateBoard(xy, setXY, position){
     }
 }
 
-function checkBoard(values){ /*
+function checkBoard(values){ 
     for(let j = 0; j < 3; j++){
-        if (values[j] == values[j + 3] == values[j + 6] != empty || values[j * 3] == values[j * 3 + 1] == values[j * 3 + 2] != empty) {
-            notFinished = false;
-            break;
-        }    
-    } */
+        if (values[j * 3] != empty && values[j * 3] == values[j * 3 + 1] && values[j * 3] == values[j * 3 + 2]) notFinished = false;
+        else if (values[j] != empty && values[j] == values[j + 3] && values[j] == values[j + 6]) notFinished = false;
+        if (notFinished == false) break;
+    }  
     if (notFinished && values[4] != empty){
-        if (values[1] == values[5] == values[8]) notFinished = false;
-        else if (values[2] == values[5] == values[9]) notFinished = false; 
-    } 
+        if (values[0] == values[4]  && values[4] == values[8]) notFinished = false;
+        else if (values[2] == values[4] && values[4] == values[6]) notFinished = false; 
+    }
+}
+
+function resetBoard(setXY){
+    setXY([empty, empty, empty, empty, empty, empty, empty, empty, empty])
+    notFinished = true
 }
 
 function Tictactoe() {
@@ -71,7 +75,7 @@ function Tictactoe() {
                     <img src={xy[8]} onClick={() => {updateBoard(xy, setXY, 8)}} alt="x" width={160} height={160}/>
                 </Game>
             </Fixed>
-            <BtnReset onClick={() => {setXY([empty, empty, empty, empty, empty, empty, empty, empty, empty])}}><button>Reset</button></BtnReset>
+            <BtnReset onClick={() => {resetBoard(setXY)}}><button>Reset</button></BtnReset>
         </>
     );
 }

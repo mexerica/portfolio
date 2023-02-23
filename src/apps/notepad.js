@@ -20,7 +20,12 @@ const SaveBtn = styled.div`
 function Note() {
     const ref = useRef("abacate");
     function guardTxt(){
-        console.log(ref.current.value);
+        const element = document.createElement("a");
+        const file = new Blob([ref.current.value], {type: 'text/plain'});
+        element.href = URL.createObjectURL(file);
+        element.download = "myFile.txt";
+        document.body.appendChild(element); // Required for this to work in FireFox
+        element.click();
     }
     function returnTxt(){
         return ref;
