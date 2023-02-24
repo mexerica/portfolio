@@ -3,6 +3,12 @@ import React, {useState} from 'react';
 import campo from '../img/campo.PNG';
 import minas from '../img/minas.PNG';
 import bloco from '../img/bloco.png';
+import semmina from '../img/semmina.png';
+import bomba1 from '../img/1bomba.png';
+import bomba2 from '../img/2bomba.png';
+import bomba3 from '../img/3bomba.png';
+import bomba4 from '../img/4bomba.png';
+import bomba5 from '../img/5bomba.png';
 
 const Fixed = styled.div`
     position:fixed;
@@ -33,15 +39,23 @@ let respostas = [
 let quantResp = 0;
 
 function criarResposta(){
-    while(quantResp < 11){
-        const x = Math.floor(Math.random() * 10);
-        const y = Math.floor(Math.random() * 10);
-        if (respostas[x][y] == 0) {
-            respostas[x][y] = 1;
+    while(quantResp < 10){
+        const x = Math.floor(Math.random() * 9);
+        const y = Math.floor(Math.random() * 9);
+        if (respostas[x][y] === 0) {
+            respostas[x][y] = -1;
+            if (x > 0) respostas[x - 1][y] += 1;
+            if (x < 8) respostas[x + 1][y] += 1;
+            if (y > 0) respostas[x][y - 1] += 1;
+            if (y < 8) respostas[x][y + 1] += 1;
+            if (x > 0 && y > 0) respostas[x - 1][y - 1] += 1;
+            if (x > 0 && y < 8) respostas[x - 1][y + 1] += 1;
+            if (x < 8 && y > 0) respostas[x + 1][y - 1] += 1;
+            if (x < 8 && y < 8) respostas[x + 1][y + 1] += 1;
             quantResp++;
         }
-    }
-    console.log(respostas);
+    } 
+    console.log(respostas)
 }
 
 function selecionar(mina, setMina, i , j){
@@ -57,7 +71,13 @@ function selecionar(mina, setMina, i , j){
             [mina[7][0], mina[7][1], mina[7][2], mina[7][3], mina[7][4], mina[7][5], mina[7][6], mina[7][7], mina[7][8]],
             [mina[8][0], mina[8][1], mina[8][2], mina[8][3], mina[8][4], mina[8][5], mina[8][6], mina[8][7], mina[8][8]]
         ]
-        if(respostas[i][j] == 1) values[i][j] = minas;
+        if(respostas[i][j] === -1) values[i][j] = minas;
+        else if (respostas[i][j] === 1) values[i][j] = bomba1;
+        else if (respostas[i][j] === 2) values[i][j] = bomba2;
+        else if (respostas[i][j] === 3) values[i][j] = bomba3;
+        else if (respostas[i][j] === 4) values[i][j] = bomba4;
+        else if (respostas[i][j] === 5) values[i][j] = bomba5;
+        else values[i][j] = semmina;
         setMina(values);
     }
 }
@@ -82,7 +102,7 @@ function CampoMinado() {
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco]
     ]);
-    if (quantResp < 11) criarResposta();
+    if (quantResp < 10) criarResposta();
     return (
         <>
             <Fixed><img src={campo} alt="campo" width={480} height={480}/></Fixed>
