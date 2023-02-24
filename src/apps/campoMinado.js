@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, {useState} from 'react';
 import campo from '../img/campo.PNG';
+import smile from '../img/smile.PNG';
 import minas from '../img/minas.PNG';
 import bloco from '../img/bloco.png';
 import semmina from '../img/semmina.png';
@@ -20,6 +21,11 @@ const Board = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 2px;
+`
+
+const Smile = styled.div`
+    position:fixed;
+    top: 110px;
 `
 
 let notFinished = true;
@@ -71,13 +77,13 @@ function selecionar(mina, setMina, i , j){
             [mina[7][0], mina[7][1], mina[7][2], mina[7][3], mina[7][4], mina[7][5], mina[7][6], mina[7][7], mina[7][8]],
             [mina[8][0], mina[8][1], mina[8][2], mina[8][3], mina[8][4], mina[8][5], mina[8][6], mina[8][7], mina[8][8]]
         ]
-        if(respostas[i][j] === -1) values[i][j] = minas;
+        if(respostas[i][j] === -1) {values[i][j] = minas; notFinished = false} 
+        else if (respostas[i][j] === 0) values[i][j] = semmina;
         else if (respostas[i][j] === 1) values[i][j] = bomba1;
         else if (respostas[i][j] === 2) values[i][j] = bomba2;
         else if (respostas[i][j] === 3) values[i][j] = bomba3;
         else if (respostas[i][j] === 4) values[i][j] = bomba4;
-        else if (respostas[i][j] === 5) values[i][j] = bomba5;
-        else values[i][j] = semmina;
+        else values[i][j] = bomba5;
         setMina(values);
     }
 }
@@ -88,6 +94,21 @@ function criandoCampo(mina, setMina){
         for(let j = 0; j < 9; j++) rows.push(<img src={mina[i][j]} onClick={() => {selecionar(mina, setMina, i , j)}} key={i + "-" + j} alt="campo" width={36} height={36}/>)
     }
     return rows;
+}
+
+function resetarCampo(setMina){
+    setMina([
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
+        [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco]
+    ]);
+    notFinished = true
 }
 
 function CampoMinado() {
@@ -107,6 +128,7 @@ function CampoMinado() {
         <>
             <Fixed><img src={campo} alt="campo" width={480} height={480}/></Fixed>
             <Board>{criandoCampo(mina, setMina)}</Board>
+            <Smile><img src={smile} onClick={() =>{(resetarCampo(setMina))}} alt="campo" width={72} height={72}/></Smile>
         </>
     );
 }
