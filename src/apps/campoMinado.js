@@ -28,7 +28,7 @@ const Smile = styled.div`
     top: 110px;
 `
 
-let notFinished = true;
+let notFinished = false;
 
 let respostas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -42,9 +42,7 @@ let respostas = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 
-let quantResp = 0;
-
-function criarResposta(){
+function criarResposta(quantResp){
     while(quantResp < 10){
         const x = Math.floor(Math.random() * 9);
         const y = Math.floor(Math.random() * 9);
@@ -77,13 +75,51 @@ function selecionar(mina, setMina, i , j){
             [mina[7][0], mina[7][1], mina[7][2], mina[7][3], mina[7][4], mina[7][5], mina[7][6], mina[7][7], mina[7][8]],
             [mina[8][0], mina[8][1], mina[8][2], mina[8][3], mina[8][4], mina[8][5], mina[8][6], mina[8][7], mina[8][8]]
         ]
-        if(respostas[i][j] === -1) {values[i][j] = minas; notFinished = false} 
-        else if (respostas[i][j] === 0) values[i][j] = semmina;
-        else if (respostas[i][j] === 1) values[i][j] = bomba1;
-        else if (respostas[i][j] === 2) values[i][j] = bomba2;
-        else if (respostas[i][j] === 3) values[i][j] = bomba3;
-        else if (respostas[i][j] === 4) values[i][j] = bomba4;
-        else values[i][j] = bomba5;
+        if(respostas[i][j] === -1) {values[i][j] = minas; notFinished = false}
+        else {
+            for (let y = i; y >= 0; y--){
+                for (let x = j; x >= 0; x--){
+                    if(respostas[i][x] === -1) {break} 
+                    else if (respostas[y][x] === 1) {values[y][x] = bomba1; break}
+                    else if (respostas[y][x] === 2) {values[y][x] = bomba2; break}
+                    else if (respostas[y][x] === 3) {values[y][x] = bomba3; break}
+                    else if (respostas[y][x] === 4) {values[y][x] = bomba4; break}
+                    else if (respostas[y][x] === 5) {values[y][x] = bomba5; break}
+                    else values[y][x] = semmina;
+                }
+                for (let x = j; x <= 8; x++){
+                    if(respostas[y][x] === -1) {break} 
+                    else if (respostas[y][x] === 1) {values[y][x] = bomba1; break}
+                    else if (respostas[y][x] === 2) {values[y][x] = bomba2; break}
+                    else if (respostas[y][x] === 3) {values[y][x] = bomba3; break}
+                    else if (respostas[y][x] === 4) {values[y][x] = bomba4; break}
+                    else if (respostas[y][x] === 5) {values[y][x] = bomba5; break}
+                    else values[y][x] = semmina;
+                }
+                if (values[y][j] !== semmina) break; 
+            }
+            for (let y = i; y <= 8; y++){
+                for (let x = j; x >= 0; x--){
+                    if(respostas[i][x] === -1) {break} 
+                    else if (respostas[y][x] === 1) {values[y][x] = bomba1; break}
+                    else if (respostas[y][x] === 2) {values[y][x] = bomba2; break}
+                    else if (respostas[y][x] === 3) {values[y][x] = bomba3; break}
+                    else if (respostas[y][x] === 4) {values[y][x] = bomba4; break}
+                    else if (respostas[y][x] === 5) {values[y][x] = bomba5; break}
+                    else values[y][x] = semmina;
+                }
+                for (let x = j; x <= 8; x++){
+                    if(respostas[y][x] === -1) {break} 
+                    else if (respostas[y][x] === 1) {values[y][x] = bomba1; break}
+                    else if (respostas[y][x] === 2) {values[y][x] = bomba2; break}
+                    else if (respostas[y][x] === 3) {values[y][x] = bomba3; break}
+                    else if (respostas[y][x] === 4) {values[y][x] = bomba4; break}
+                    else if (respostas[y][x] === 5) {values[y][x] = bomba5; break}
+                    else values[y][x] = semmina;
+                }
+                if (values[y][j] !== semmina) break; 
+            }
+        }
         setMina(values);
     }
 }
@@ -108,7 +144,19 @@ function resetarCampo(setMina){
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco]
     ]);
-    notFinished = true
+    notFinished = true;
+    respostas = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+    criarResposta(0);
 }
 
 function CampoMinado() {
@@ -123,7 +171,6 @@ function CampoMinado() {
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco]
     ]);
-    if (quantResp < 10) criarResposta();
     return (
         <>
             <Fixed><img src={campo} alt="campo" width={480} height={480}/></Fixed>
