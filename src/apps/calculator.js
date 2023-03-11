@@ -9,7 +9,7 @@ const ButtonsCalc = styled.div`
     bottom: 75px;
 `
 const Buttons = styled.div`
-    width: 50px;
+    width: 30px;
     padding: 25px 50px;
     text-align:center;
     font-size: 14px;
@@ -82,16 +82,16 @@ function Calc() {
             <Border></Border>
             <Result>{x}</Result>
             <ButtonsCalc>
-                <Buttons onClick={() => {setValue(setX, x, "0")}}>0</Buttons>
-                <Buttons onClick={() => {setValue(setX, x, "1")}}>1</Buttons>
-                <Buttons onClick={() => {setValue(setX, x, "2")}}>2</Buttons>
-                <Buttons onClick={() => {setValue(setX, x, "3")}}>3</Buttons>        
-                <Buttons onClick={() => {setValue(setX, x, "4")}}>4</Buttons>
-                <Buttons onClick={() => {setValue(setX, x, "5")}}>5</Buttons>
-                <Buttons onClick={() => {setValue(setX, x, "6")}}>6</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "7")}}>7</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "8")}}>8</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "9")}}>9</Buttons>
+                <Buttons onClick={() => {setValue(setX, x, "4")}}>4</Buttons>
+                <Buttons onClick={() => {setValue(setX, x, "5")}}>5</Buttons>
+                <Buttons onClick={() => {setValue(setX, x, "6")}}>6</Buttons>
+                <Buttons onClick={() => {setValue(setX, x, "1")}}>1</Buttons>
+                <Buttons onClick={() => {setValue(setX, x, "2")}}>2</Buttons>
+                <Buttons onClick={() => {setValue(setX, x, "3")}}>3</Buttons>        
+                <Buttons onClick={() => {setValue(setX, x, "0")}}>0</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, ".")}}>,</Buttons>
                 <Buttons onClick={() => {setX(0)}}><Red>AC</Red></Buttons>
                 <Buttons onClick={() => {setValue(setX,x,"+")}}><Red>+</Red></Buttons>

@@ -10,6 +10,7 @@ import photoshop from "../img/photoshop.png";
 import folder from "../img/folder.png";
 import tictactoe from "../img/tictactoe.png";
 import Minesweeper from "../img/Minesweeper.png";
+import explorer from "../img/explorer.png";
 import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
@@ -17,7 +18,8 @@ import Clock from '../apps/clock';
 import Paint from '../apps/paint';
 import Folder from '../apps/folder';
 import Tictactoe from "../apps/tictactoe";
-import CampoMinado from "../apps/campoMinado"
+import CampoMinado from "../apps/campoMinado";
+import Internet from '../apps/internet';
 
 const Bottom = styled.div`
     position:fixed;
@@ -27,7 +29,8 @@ const Bottom = styled.div`
     height: 30px;
     margin-left: auto;
     margin-right: auto;
-    background-color: blue;
+    background: rgb(0,83,241);
+    background: linear-gradient(0deg, rgba(0,83,241,1) 90%, rgba(86,144,255,1) 100%);
 `
 
 const Button = styled.div`
@@ -59,15 +62,21 @@ const Window = styled.div`
     height: 500px;
     width: 500px;
     background-color: #faf4e4;
-    border: 15px solid blue;
+    border: 15px solid rgba(0,83,241,1);
 `
 
 const ExitBtn = styled.div`
-    width: 20px;
+    position:relative;
+    width: 14px;
+    weight: 30px;
     text-align:center;
+    top:60px;
+    right: -530px;
+    top: -255px;
     background-color: red;
     border: 1px solid white;
-    padding: 5px 5px;
+    border-top: 1px solid red;
+    padding: 1px 1px;
     :hover {
         background-color: white;
         color: red;
@@ -75,7 +84,7 @@ const ExitBtn = styled.div`
 `
 
 function Home() {
-    const [app, setApp] = useState("calc");
+    const [app, setApp] = useState("folder");
     return (
         <>
             <Bottom><Button>Start</Button></Bottom> 
@@ -90,8 +99,10 @@ function Home() {
                 <img src={folder} onClick={() => {setApp("folder")}} alt="this is folder" width={40} height={40}/>
                 <img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
                 <img src={Minesweeper} onClick={() => {setApp("campominado")}} alt="this is folder" width={40} height={40}/>
+                <img src={explorer} onClick={() => {setApp("internet")}} alt="this is folder" width={40} height={40}/>
             </Images>
-            <Window></Window> 
+            <ExitBtn>X</ExitBtn> 
+            <Window></Window>
             {
                 (app == "paint") ? <Paint/> :  
                 (app == "calc") ? <Calc/> :
@@ -100,6 +111,7 @@ function Home() {
                 (app == "folder") ? <Folder/> :
                 (app == "tictactoe") ? <Tictactoe/> :
                 (app == "campominado") ? <CampoMinado/> :
+                (app == "internet") ? <Internet/> :
                 <PDF/>
             }
         </>

@@ -13,7 +13,7 @@ const SaveBtn = styled.div`
     position:fixed;
     top: 80px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 1px;
 `
 
