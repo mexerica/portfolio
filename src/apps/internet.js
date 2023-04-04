@@ -3,7 +3,8 @@ import {useRef} from 'react';
 import Google from '../img/google.png'
 
 const WebBrowser = styled.div`
-    position:fixed;
+    position:relative;
+    border: 15px solid rgba(0,83,241,1);
 `
 
 function Internet() {

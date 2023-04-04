@@ -7,6 +7,9 @@ const ButtonsCalc = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1px;
     bottom: 75px;
+    border: 15px solid rgba(0,83,241,1);
+    background-color: #faf4e4;
+    padding:30px;
 `
 const Buttons = styled.div`
     width: 30px;
@@ -29,20 +32,28 @@ const Red = styled.div`
 `
 
 const Border = styled.div`
-    position:fixed;
-    top: 77px;
+    position:relative;
+    top: -240px;
     background-color:white;
     border: 2px solid black;
     width: 450px;
     height: 45px;
+    color:black;
+    text-align:center;
 `
 
 const Result = styled.div`
-    position:fixed;
+    position:relative;
     color:black;
-    top: 75px;
-    font-size: 40px;
+    top: 5px7;
 }
+`
+
+const Back = styled.div`
+    width:100px;
+    position:absolute;
+    border: 15px solid rgba(0,83,241,1);
+    background-color: #faf4e4;
 `
 
 let operation = "none"
@@ -79,8 +90,7 @@ function Calc() {
     const [x, setX] = useState("0");
     return (
         <>
-            <Border></Border>
-            <Result>{x}</Result>
+            <Border><p>{x}</p></Border>
             <ButtonsCalc>
                 <Buttons onClick={() => {setValue(setX, x, "7")}}>7</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "8")}}>8</Buttons>
@@ -99,7 +109,7 @@ function Calc() {
                 <Buttons onClick={() => {setValue(setX,x,"*")}}><Red>*</Red></Buttons>
                 <Buttons onClick={() => {setValue(setX,x,"/")}}><Red>/</Red></Buttons>
                 <Buttons onClick={() => {setValue(setX,x,"=")}}><Red>=</Red></Buttons>
-        </ButtonsCalc>
+            </ButtonsCalc>
         </>
     );
 }

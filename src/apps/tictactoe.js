@@ -9,6 +9,12 @@ const Fixed = styled.div`
     position:fixed;
 `
 
+const GameScreen = styled.div`
+    position:relative;
+    border: 15px solid rgba(0,83,241,1);
+    background-color: #faf4e4;
+`
+
 const Game = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -61,7 +67,7 @@ function Tictactoe() {
     const [xy, setXY] = useState([empty, empty, empty, empty, empty, empty, empty, empty, empty]);
     return (
         <>
-            <Fixed><img src={tic} alt="board" width={480} height={480}/></Fixed>
+            <GameScreen><img src={tic} alt="board" width={480} height={480}/></GameScreen>
             <Fixed> 
                 <Game>
                     <img src={xy[0]} onClick={() => {updateBoard(xy, setXY, 0)}} alt="x" width={160} height={160}/>

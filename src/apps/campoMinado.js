@@ -11,8 +11,10 @@ import bomba3 from '../img/3bomba.png';
 import bomba4 from '../img/4bomba.png';
 import bomba5 from '../img/5bomba.png';
 
-const Fixed = styled.div`
-    position:fixed;
+const Back = styled.div`
+    position:relative;
+    border: 15px solid rgba(0,83,241,1);
+    background-color: #faf4e4;
 `
 
 const Board = styled.div`
@@ -173,7 +175,7 @@ function CampoMinado() {
     ]);
     return (
         <>
-            <Fixed><img src={campo} alt="campo" width={480} height={480}/></Fixed>
+            <Back><img src={campo} alt="campo" width={480} height={480}/></Back>
             <Board>{criandoCampo(mina, setMina)}</Board>
             <Smile><img src={smile} onClick={() =>{(resetarCampo(setMina))}} alt="campo" width={72} height={72}/></Smile>
         </>

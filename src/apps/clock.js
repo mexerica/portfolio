@@ -8,7 +8,10 @@ import React, {useState} from 'react';
 //const date = new Date;
 
 const TicTac = styled.div`
-    position:fixed;
+    position:relative;
+    width: auto;
+    height: auto;
+    border: 15px solid rgba(0,83,241,1);
 `
 
 function setTime(time, type){

@@ -21,6 +21,8 @@ const Folders = styled.div`
     bottom: 200px;
     color: black;
     font-size: 8px;
+    background-color: #faf4e4;
+    border: 15px solid rgba(0,83,241,1);
 `
 
 const AFolder = styled.div`

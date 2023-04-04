@@ -88,6 +88,19 @@ function Home() {
     return (
         <>
             <Bottom><Button>Start</Button></Bottom> 
+            <ExitBtn>X</ExitBtn> 
+            
+            {
+                (app == "paint") ? <Paint/> :  
+                (app == "calc") ? <Calc/> :
+                (app == "clock") ? <Clock/> :  
+                (app == "note") ? <Note/> :
+                (app == "folder") ? <Folder/> :
+                (app == "tictactoe") ? <Tictactoe/> :
+                (app == "campominado") ? <CampoMinado/> :
+                (app == "internet") ? <Internet/> :
+                <PDF/>
+            }
             <Images>
                 <img src={notepad} onClick={() => {setApp("note")}} alt="this is notepad" width={40} height={40}/>
                 <img src={paint} onClick={() => {setApp("paint")}} alt="this is paint" width={40} height={40}/>
@@ -101,19 +114,6 @@ function Home() {
                 <img src={Minesweeper} onClick={() => {setApp("campominado")}} alt="this is folder" width={40} height={40}/>
                 <img src={explorer} onClick={() => {setApp("internet")}} alt="this is folder" width={40} height={40}/>
             </Images>
-            <ExitBtn>X</ExitBtn> 
-            <Window></Window>
-            {
-                (app == "paint") ? <Paint/> :  
-                (app == "calc") ? <Calc/> :
-                (app == "clock") ? <Clock/> :  
-                (app == "note") ? <Note/> :
-                (app == "folder") ? <Folder/> :
-                (app == "tictactoe") ? <Tictactoe/> :
-                (app == "campominado") ? <CampoMinado/> :
-                (app == "internet") ? <Internet/> :
-                <PDF/>
-            }
         </>
     );
 }
