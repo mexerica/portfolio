@@ -16,6 +16,18 @@ const PaintButtons = styled.div`
     grid-gap: 1px;
 `
 
+const Back = styled.div`
+    border: 15px solid rgba(0,83,241,1);
+    background-color: #faf4e4;
+`
+
+const Window = styled.div`
+    height: 500px;
+    width: 500px;
+    background-color: #faf4e4;
+    border: 15px solid rgba(0,83,241,1);
+`
+
 let img;
 
 function setSize(lineWidth,setLineWidth){
@@ -100,6 +112,7 @@ function Paint() {
 
     return (
       <>
+        <Window></Window>
         <PaintButtons>
             <button onClick={() => {setColor(lineColor,setLineColor)}}>{lineColor}</button>
             <button onClick={() => {setSize(lineWidth,setLineWidth)}}>{lineWidth}</button>
@@ -107,7 +120,7 @@ function Paint() {
             <button onClick={() => {clearCanvas(canvasRef)}}>Reset</button>
             <button onClick={() => {saveImg(canvasRef)}}>Save</button>
         </PaintButtons>
-        <Quadro><canvas ref={canvasRef} onMouseDown={startDrawing} onMouseUp={endDrawing} onMouseMove={draw} height="400" width="400"/></Quadro>
+       <Quadro><canvas ref={canvasRef} onMouseDown={startDrawing} onMouseUp={endDrawing} onMouseMove={draw} height="400" width="400"/></Quadro>
       </>
     );
   }

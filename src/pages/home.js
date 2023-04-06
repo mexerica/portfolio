@@ -58,13 +58,6 @@ const Images = styled.div`
     top: 0px;
 `
 
-const Window = styled.div`
-    height: 500px;
-    width: 500px;
-    background-color: #faf4e4;
-    border: 15px solid rgba(0,83,241,1);
-`
-
 const ExitBtn = styled.div`
     position:relative;
     width: 14px;
@@ -88,8 +81,6 @@ function Home() {
     return (
         <>
             <Bottom><Button>Start</Button></Bottom> 
-            <ExitBtn>X</ExitBtn> 
-            
             {
                 (app == "paint") ? <Paint/> :  
                 (app == "calc") ? <Calc/> :

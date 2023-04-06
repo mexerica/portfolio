@@ -7,6 +7,9 @@ const Txt = styled.div`
     text-size: 20px;
     resize: none;
     bottom: 80px;
+    border: 15px solid rgba(0,83,241,1);
+    background-color: #faf4e4;
+    padding: 10px;
 `
 
 const SaveBtn = styled.div`
@@ -32,11 +35,11 @@ function Note() {
     }
     return (
         <>
+            <Txt><textarea ref={ref} rows="30" cols="60" id="TITLE"></textarea></Txt>
             <SaveBtn>
                 <button onClick={() =>{guardTxt()}}>Save</button>
                 <button onClick={() =>{ref.current.value =  ""}}>Clear</button>
             </SaveBtn>
-            <Txt><textarea ref={ref} rows="30" cols="60" id="TITLE"></textarea></Txt>
         </>
     );
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 
 const ButtonsCalc = styled.div`
     position:fixed;
@@ -9,7 +9,8 @@ const ButtonsCalc = styled.div`
     bottom: 75px;
     border: 15px solid rgba(0,83,241,1);
     background-color: #faf4e4;
-    padding:30px;
+    padding:50px;
+    bottom:30px;
 `
 const Buttons = styled.div`
     width: 30px;
@@ -42,23 +43,8 @@ const Border = styled.div`
     text-align:center;
 `
 
-const Result = styled.div`
-    position:relative;
-    color:black;
-    top: 5px7;
-}
-`
-
-const Back = styled.div`
-    width:100px;
-    position:absolute;
-    border: 15px solid rgba(0,83,241,1);
-    background-color: #faf4e4;
-`
-
 let operation = "none"
 let result = ""
-let hascomma = false
 
 function setValue(setX, x, y){
     let newX
@@ -90,7 +76,6 @@ function Calc() {
     const [x, setX] = useState("0");
     return (
         <>
-            <Border><p>{x}</p></Border>
             <ButtonsCalc>
                 <Buttons onClick={() => {setValue(setX, x, "7")}}>7</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "8")}}>8</Buttons>
@@ -110,6 +95,7 @@ function Calc() {
                 <Buttons onClick={() => {setValue(setX,x,"/")}}><Red>/</Red></Buttons>
                 <Buttons onClick={() => {setValue(setX,x,"=")}}><Red>=</Red></Buttons>
             </ButtonsCalc>
+            <Border><p>{x}</p></Border>
         </>
     );
 }
