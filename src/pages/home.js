@@ -20,6 +20,7 @@ import Folder from '../apps/folder';
 import Tictactoe from "../apps/tictactoe";
 import CampoMinado from "../apps/campoMinado";
 import Internet from '../apps/internet';
+import barra from '../img/barraTarefas.png'
 
 const Bottom = styled.div`
     position:fixed;
@@ -76,11 +77,34 @@ const ExitBtn = styled.div`
     }
 `
 
+const BarraTarefas = styled.div`
+    position:fixed;
+    left:0px;
+    bottom:25px;
+`
+
+const InfoTarefas = styled.div`
+    position:Absolute;
+    left:60px;
+    bottom:315px;
+    font-size: 25px;
+`
+
 function Home() {
     const [app, setApp] = useState("folder");
+    const [tarefas, setTarefas] = useState(false);
     return (
         <>
-            <Bottom><Button>Start</Button></Bottom> 
+            <Bottom><Button onClick={() => {setTarefas(!tarefas)}}>Start</Button></Bottom> 
+            {
+                (tarefas) ?
+                    <> 
+                        <BarraTarefas><img src={barra} alt="barra de tarefas" width={320} height={320}></img></BarraTarefas>
+                        <InfoTarefas>User</InfoTarefas> 
+                    </>
+                    : <></>
+            }
+            
             {
                 (app == "paint") ? <Paint/> :  
                 (app == "calc") ? <Calc/> :
