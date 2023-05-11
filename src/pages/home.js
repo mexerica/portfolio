@@ -11,6 +11,11 @@ import folder from "../img/folder.png";
 import tictactoe from "../img/tictactoe.png";
 import Minesweeper from "../img/Minesweeper.png";
 import explorer from "../img/explorer.png";
+<<<<<<< HEAD
+=======
+import barra from '../img/barraTarefas.png';
+import config from '../img/config.png';
+>>>>>>> 16540bc (melhorando a calc e começando o config)
 import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
@@ -20,7 +25,11 @@ import Folder from '../apps/folder';
 import Tictactoe from "../apps/tictactoe";
 import CampoMinado from "../apps/campoMinado";
 import Internet from '../apps/internet';
+<<<<<<< HEAD
 import barra from '../img/barraTarefas.png'
+=======
+import Configurations from '../apps/config';
+>>>>>>> 16540bc (melhorando a calc e começando o config)
 
 const Bottom = styled.div`
     position:fixed;
@@ -93,6 +102,10 @@ const InfoTarefas = styled.div`
 function Home() {
     const [app, setApp] = useState("folder");
     const [tarefas, setTarefas] = useState(false);
+<<<<<<< HEAD
+=======
+    //const [color, setColor] = useState(rgba(0,83,241,1))
+>>>>>>> 16540bc (melhorando a calc e começando o config)
     return (
         <>
             <Bottom><Button onClick={() => {setTarefas(!tarefas)}}>Start</Button></Bottom> 
@@ -114,6 +127,10 @@ function Home() {
                 (app == "tictactoe") ? <Tictactoe/> :
                 (app == "campominado") ? <CampoMinado/> :
                 (app == "internet") ? <Internet/> :
+<<<<<<< HEAD
+=======
+                (app == "config") ? <Configurations/> :
+>>>>>>> 16540bc (melhorando a calc e começando o config)
                 <PDF/>
             }
             <Images>
@@ -128,6 +145,10 @@ function Home() {
                 <img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
                 <img src={Minesweeper} onClick={() => {setApp("campominado")}} alt="this is folder" width={40} height={40}/>
                 <img src={explorer} onClick={() => {setApp("internet")}} alt="this is folder" width={40} height={40}/>
+<<<<<<< HEAD
+=======
+                <img src={config} onClick={() => {setApp("config")}} alt="this is folder" width={40} height={40}/>
+>>>>>>> 16540bc (melhorando a calc e começando o config)
             </Images>
         </>
     );
