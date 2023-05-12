@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+const ButtonsConfig = styled.div`
+    position:fixed;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1px;
+    border: 15px solid rgba(0,83,241,1);
+    background-color: #faf4e4;
+    padding:50px;
+`
+
 const Buttons = styled.div`
     padding: 25px 80px;
     text-align:center;
@@ -17,7 +27,10 @@ const Buttons = styled.div`
 
 function Configurations() {
     return (
-        <Buttons>Mudar cor da interface</Buttons>
+        <ButtonsConfig>
+            <Buttons>Mudar cor da interface</Buttons>
+            <Buttons>Mudar background</Buttons>
+        </ButtonsConfig>
     );
 }
 

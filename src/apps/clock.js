@@ -11,7 +11,7 @@ const TicTac = styled.div`
     position:relative;
     width: auto;
     height: auto;
-    border: 15px solid rgba(0,83,241,1);
+    border: 15px solid #0053f1;
 `
 
 function setTime(time, type){

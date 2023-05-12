@@ -11,11 +11,8 @@ import folder from "../img/folder.png";
 import tictactoe from "../img/tictactoe.png";
 import Minesweeper from "../img/Minesweeper.png";
 import explorer from "../img/explorer.png";
-<<<<<<< HEAD
-=======
 import barra from '../img/barraTarefas.png';
 import config from '../img/config.png';
->>>>>>> 16540bc (melhorando a calc e começando o config)
 import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
@@ -25,23 +22,10 @@ import Folder from '../apps/folder';
 import Tictactoe from "../apps/tictactoe";
 import CampoMinado from "../apps/campoMinado";
 import Internet from '../apps/internet';
-<<<<<<< HEAD
-import barra from '../img/barraTarefas.png'
-=======
 import Configurations from '../apps/config';
->>>>>>> 16540bc (melhorando a calc e começando o config)
-
-const Bottom = styled.div`
-    position:fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    height: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    background: rgb(0,83,241);
-    background: linear-gradient(0deg, rgba(0,83,241,1) 90%, rgba(86,144,255,1) 100%);
-`
+import XP from "../img/windowxp.jpeg";
+import loading from "../img/loading.gif";
+import win98 from  "../img/win98.png";
 
 const Button = styled.div`
     width: 30px;
@@ -68,24 +52,6 @@ const Images = styled.div`
     top: 0px;
 `
 
-const ExitBtn = styled.div`
-    position:relative;
-    width: 14px;
-    weight: 30px;
-    text-align:center;
-    top:60px;
-    right: -530px;
-    top: -255px;
-    background-color: red;
-    border: 1px solid white;
-    border-top: 1px solid red;
-    padding: 1px 1px;
-    :hover {
-        background-color: white;
-        color: red;
-    }
-`
-
 const BarraTarefas = styled.div`
     position:fixed;
     left:0px;
@@ -102,12 +68,32 @@ const InfoTarefas = styled.div`
 function Home() {
     const [app, setApp] = useState("folder");
     const [tarefas, setTarefas] = useState(false);
-<<<<<<< HEAD
-=======
-    //const [color, setColor] = useState(rgba(0,83,241,1))
->>>>>>> 16540bc (melhorando a calc e começando o config)
+    const [background, setBacground] = useState(XP);
+    const [color, setColor] = useState("#0053f1");
+
+    const AppDiv = styled.div`
+        background-image: url(${background});
+        background-repeat: no-repeat;
+        background-size: 2000px 700px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    `
+    const Bottom = styled.div`
+        position:fixed;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        background: rgb(0,83,241);
+        background: linear-gradient(0deg, ${color} 90%, rgba(86,144,255,1) 100%);
+    `
     return (
-        <>
+        <AppDiv>
             <Bottom><Button onClick={() => {setTarefas(!tarefas)}}>Start</Button></Bottom> 
             {
                 (tarefas) ?
@@ -117,7 +103,6 @@ function Home() {
                     </>
                     : <></>
             }
-            
             {
                 (app == "paint") ? <Paint/> :  
                 (app == "calc") ? <Calc/> :
@@ -127,10 +112,7 @@ function Home() {
                 (app == "tictactoe") ? <Tictactoe/> :
                 (app == "campominado") ? <CampoMinado/> :
                 (app == "internet") ? <Internet/> :
-<<<<<<< HEAD
-=======
                 (app == "config") ? <Configurations/> :
->>>>>>> 16540bc (melhorando a calc e começando o config)
                 <PDF/>
             }
             <Images>
@@ -145,12 +127,9 @@ function Home() {
                 <img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
                 <img src={Minesweeper} onClick={() => {setApp("campominado")}} alt="this is folder" width={40} height={40}/>
                 <img src={explorer} onClick={() => {setApp("internet")}} alt="this is folder" width={40} height={40}/>
-<<<<<<< HEAD
-=======
                 <img src={config} onClick={() => {setApp("config")}} alt="this is folder" width={40} height={40}/>
->>>>>>> 16540bc (melhorando a calc e começando o config)
             </Images>
-        </>
+        </AppDiv>
     );
 }
 //<ExitBtn>X</ExitBtn>

@@ -3,8 +3,6 @@ import {useRef} from 'react';
 
 const Txt = styled.div`
     position:fixed;
-    color:green;
-    text-size: 20px;
     resize: none;
     bottom: 80px;
     border: 15px solid rgba(0,83,241,1);
@@ -35,7 +33,7 @@ function Note() {
     }
     return (
         <>
-            <Txt><textarea ref={ref} rows="30" cols="60" id="TITLE"></textarea></Txt>
+            <Txt><textarea ref={ref} rows="30" cols="60" id="TITLE" placeholder="Write here."></textarea></Txt>
             <SaveBtn>
                 <button onClick={() =>{guardTxt()}}>Save</button>
                 <button onClick={() =>{ref.current.value =  ""}}>Clear</button>
