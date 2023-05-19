@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
+import doomgun from "../img/doomgun.png";
+import doomshooting from "../img/doomgunshooting.png";
 
 const map = [
     [1, 1, 1, 1, 1, 1, 1, 1],
@@ -18,6 +20,12 @@ const Screen = styled.div`
     color:black;
     border: 15px solid rgba(0,83,241,1);
     box-sizing: border-box;
+`
+
+const BigFGun = styled.div`
+    position:relative;
+    justify-content:center;
+    bottom: -148px;
 `
 
 function distance(x1, y1, x2, y2) {
@@ -72,7 +80,6 @@ function getVCollision(angle) {
       if (outOfMapBounds(cellX, cellY)) break;
       wall = map[cellY][cellX];
       if (wall == 2) color = "#6bcdb3"; 
-      console.log(wall)
       if (!wall) {
         nextX += xA;
         nextY += yA;
@@ -143,19 +150,32 @@ function loop(doomRef){
     player.y += Math.sin(player.angle) * player.speed;
     const rays = getRays();
     renderScene(rays,ctx);
-    renderMinimap(0, 0, 0.75, getRays(), ctx);
+    renderMinimap(0, 0, 0.75, getRays(), ctx); 
+}
+
+function shooting(setGun){
+    //setGun()
+    let count = 0;
+    const myInterval = setInterval(() => {
+        if (count === 0) setGun(doomshooting)
+        else if (count === 1) setGun(doomgun)
+        else clearInterval(myInterval)
+        count++;        
+    }, 800)
 }
 
 const player = {x: 32 * 1.5, y: 32 * 2, angle: 0 * Math.PI / 180, speed: 0};
 
 function Doom() { 
-    const doomRef = useRef(null); 
+    const doomRef = useRef(null);
+    const [gun, setGun] = useState(doomgun)
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "ArrowUp" || e.key === "w") player.speed = 2;
         if (e.key === "ArrowDown" || e.key === "s") player.speed = -2;
-        if (e.key === "ArrowRight" || e.key === "d") player.angle += 2 * Math.PI / 180; //player.y += 2;
-        if (e.key === "ArrowLeft" || e.key === "a") player.angle -= 2 * Math.PI / 180; //player.y -= 2
+        if (e.key === "ArrowRight" || e.key === "d") player.angle += 1 * Math.PI / 180; //player.y += 2;
+        if (e.key === "ArrowLeft" || e.key === "a") player.angle -= 1 * Math.PI / 180; //player.y -= 2
+        if (e.key === "Enter") shooting(setGun)
     });
       
     document.addEventListener("keyup", (e) => {
@@ -165,10 +185,13 @@ function Doom() {
     document.addEventListener("mousemove", function (e) {
         player.angle += e.movementX * Math.PI / 180;
     });
-
-    useEffect(() => {setInterval(() => {loop(doomRef)}, 10)}, [player]);
+    
+    useEffect(() => {setInterval(() => {loop(doomRef)}, 10)}, []);
     return (
-        <Screen><canvas ref={doomRef} height="500" width="500"/></Screen>
+        <>
+            <Screen onClick={() =>{shooting(setGun)}}><canvas ref={doomRef} height="500" width="500"/></Screen>
+            <BigFGun><img src={gun} alt="arminha piu piu"/></BigFGun>
+        </>
     );
 }
 
