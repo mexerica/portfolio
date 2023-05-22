@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useState, useRef, useEffect } from 'react'
 
-const Quadro = styled.div`
+const Quadro = styled.canvas`
     position:fixed;
     background-color:white;
     color:black;
@@ -12,13 +12,8 @@ const PaintButtons = styled.div`
     position:fixed;
     top:90px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1px;
-`
-
-const Back = styled.div`
-    border: 15px solid rgba(0,83,241,1);
-    background-color: #faf4e4;
 `
 
 const Window = styled.div`
@@ -28,11 +23,14 @@ const Window = styled.div`
     border: 15px solid rgba(0,83,241,1);
 `
 
-let img;
-
 function setSize(lineWidth,setLineWidth){
     if (lineWidth < 50) setLineWidth(lineWidth + 5);
     else setLineWidth(5);
+}
+
+function setOpacity(lineOpacity,setLineOpacity){ 
+  if (lineOpacity > 0.01) setLineOpacity(lineOpacity / 10);
+  else setLineOpacity(1);
 }
 
 function setColor(lineColor,setLineColor){
@@ -44,6 +42,8 @@ function setColor(lineColor,setLineColor){
       case "yellow": setLineColor("purple"); break;
       case "purple": setLineColor("gray"); break;
       case "gray": setLineColor("brown"); break;
+      case "brown": setLineColor("pink"); break;
+      case "pink": setLineColor("lightblue"); break;  
       default: setLineColor("black"); break;
   }
 }
@@ -52,6 +52,17 @@ function clearCanvas(canvasRef){
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function invertCanvas(canvasRef){
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      for (let j = 0; j < 3; j++) data[i + j] = 255 - data[i + j]; 
+    }
+    ctx.putImageData(imageData, 0, 0);
 }
 
 function saveImg(canvasRef){
@@ -65,13 +76,22 @@ function saveImg(canvasRef){
   });
 }
 
+function paintBucket(canvasRef, lineColor){
+  const canvas = canvasRef.current;
+  const ctx = canvas.getContext("2d");
+  //const dataURL = canvas.toDataURL("image/png");
+  ctx.fillStyle = lineColor;
+  ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+  //ctx.drawImage(dataURL, 0, 0);
+}
+
 function Paint() {
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [lineWidth, setLineWidth] = useState(5);
     const [lineColor, setLineColor] = useState("black");
-    const [lineOpacity, setLineOpacity] = useState(0.1);
+    const [lineOpacity, setLineOpacity] = useState(1);
     
     useEffect(() => {
       const canvas = canvasRef.current;
@@ -86,10 +106,7 @@ function Paint() {
     
     const startDrawing = (e) => {
       ctxRef.current.beginPath();
-      ctxRef.current.moveTo(
-        e.nativeEvent.offsetX, 
-        e.nativeEvent.offsetY
-      );
+      ctxRef.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
       setIsDrawing(true);
     };
     
@@ -116,11 +133,14 @@ function Paint() {
         <PaintButtons>
             <button onClick={() => {setColor(lineColor,setLineColor)}}>{lineColor}</button>
             <button onClick={() => {setSize(lineWidth,setLineWidth)}}>{lineWidth}</button>
+            <button onClick={() => {setOpacity(lineOpacity, setLineOpacity)}}>{lineOpacity}</button>
+            <button onClick={() => {paintBucket(canvasRef, lineColor)}}>Bucket</button>
             <button onClick={() => {setLineColor("white")}}>Erasor</button>
             <button onClick={() => {clearCanvas(canvasRef)}}>Reset</button>
-            <button onClick={() => {saveImg(canvasRef)}}>Save</button>
+            <button onClick={() => {invertCanvas(canvasRef)}}>Invert</button>
+            <button onClick={() => {saveImg(canvasRef, setLineOpacity)}}>Save</button>
         </PaintButtons>
-       <Quadro><canvas ref={canvasRef} onMouseDown={startDrawing} onMouseUp={endDrawing} onMouseMove={draw} height="400" width="400"/></Quadro>
+       <Quadro ref={canvasRef} onMouseDown={startDrawing} onMouseUp={endDrawing} onMouseMove={draw} height="400" width="400"></Quadro>
       </>
     );
   }

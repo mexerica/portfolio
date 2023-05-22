@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {useRef,useState} from 'react';
 
-const WebBrowser = styled.div`
+const WebBrowser = styled.iframe`
     position:relative;
     border: 15px solid rgba(0,83,241,1);
 `
@@ -25,7 +25,7 @@ function Internet() {
     const [site, setSite] = useState(ref.current);
     return (
         <>
-            <WebBrowser><iframe src={site} height="500" width="750"></iframe></WebBrowser>
+            <WebBrowser iframe src={site} height="500" width="750"></WebBrowser>
             <SearchBar>
                 <input type='text' ref={ref}></input>
                 <button onClick={() =>{changeWebSite(ref, setSite)}}>Search</button>

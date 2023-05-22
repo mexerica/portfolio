@@ -22,7 +22,7 @@ const Game = styled.div`
 `
 
 const BtnReset = styled.div`
-position:fixed;
+    position:fixed;
     bottom:80px;
 `
 
@@ -61,6 +61,7 @@ function checkBoard(values){
 function resetBoard(setXY){
     setXY([empty, empty, empty, empty, empty, empty, empty, empty, empty])
     notFinished = true
+    type = tac;
 }
 
 function Tictactoe() {

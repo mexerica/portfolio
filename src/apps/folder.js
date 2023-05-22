@@ -70,7 +70,7 @@ function Folder(){
                         </AFolder>
                         <AFolder>
                             <img src={gmail} alt="a folder" width={120} height={120}/>
-                            <h1>Email</h1>
+                            <h1>tiagosilvasiqueira10@gmail.com</h1>
                         </AFolder>
                         <AFolder>
                             <a href="https://github.com/mexerica">

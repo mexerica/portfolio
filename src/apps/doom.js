@@ -14,7 +14,7 @@ const map = [
     [1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
-const Screen = styled.div`
+const Screen = styled.canvas`
     position:fixed;
     background-color:white;
     color:black;
@@ -186,10 +186,10 @@ function Doom() {
         player.angle += e.movementX * Math.PI / 180;
     });
     
-    useEffect(() => {setInterval(() => {loop(doomRef)}, 10)}, []);
+    useEffect(() => {setInterval(() => {loop(doomRef)}, 1)}, []);
     return (
         <>
-            <Screen onClick={() =>{shooting(setGun)}}><canvas ref={doomRef} height="500" width="500"/></Screen>
+            <Screen onClick={() =>{shooting(setGun)}} ref={doomRef} height="500" width="500" ></Screen>
             <BigFGun><img src={gun} alt="arminha piu piu"/></BigFGun>
         </>
     );

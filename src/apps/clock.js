@@ -14,18 +14,13 @@ const TicTac = styled.div`
     border: 15px solid #0053f1;
 `
 
-function setTime(time, type){
+function setTime(time){
     let newTime;
-    //setInterval(function () {console.log(date)}, 1000);
-    if (type == "hour"){
-        if (time > 12) time -= 12;
-        switch(time){
-            case(12): newTime = 0; break;
-            default: newTime = time * 30; break;
-        }
-    } else {
-        newTime = time * 6;
-    }
+    if (time > 12) time -= 12;
+    switch(time){
+        case(12): newTime = 0; break;
+        default: newTime = time * 30; break;
+    } 
     return newTime;
 }
 
@@ -35,17 +30,17 @@ function Clock() {
     
     const PointerHour = styled.div`
         position:fixed;
-        transform:rotate(${setTime(date.getHours(), "hour")}deg);
+        transform:rotate(${setTime(date.getHours())}deg);
     `
 
     const PointerMinutes = styled.div`
         position:fixed;
-        transform:rotate(${setTime(date.getMinutes(), "minutes")}deg);
+        transform:rotate(${date.getMinutes() * 6}deg);
     `
 
     const PointerSeconds = styled.div`
         position:fixed;
-        transform:rotate(${setTime(date.getSeconds(), "seconds")}deg);
+        transform:rotate(${date.getSeconds() * 6}deg);
     `
     return (
         <>

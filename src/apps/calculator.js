@@ -5,16 +5,15 @@ const ButtonsCalc = styled.div`
     position:fixed;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 1px;
+    grid-gap: 2px;
     border: 15px solid rgba(0,83,241,1);
     background-color: #faf4e4;
-    padding:50px;
+    padding:55px;
 `
 const Buttons = styled.div`
     width: 5px;
     padding: 25px 40px;
     text-align:center;
-    font-size: 14px;
     background-color: white;
     color: #0096ff;
     border: 2px solid black;
@@ -32,6 +31,7 @@ const Red = styled.div`
 
 const Border = styled.div`
     position:relative;
+    font-size: 40px;
     top: -220px;
     background-color:white;
     border: 2px solid black;
@@ -102,7 +102,7 @@ function Calc() {
                 <Buttons onClick={() => {setX(-x)}}><Red>+/-</Red></Buttons>
                 <Buttons onClick={() => {setX(1/x)}}><Red>1/x</Red></Buttons>
             </ButtonsCalc>
-            <Border><p>{x}</p></Border>
+            <Border>{x}</Border>
         </>
     );
 }
