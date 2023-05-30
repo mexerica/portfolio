@@ -12,15 +12,15 @@ const PaintButtons = styled.div`
     position:fixed;
     top:90px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 1px;
+    grid-template-columns: 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr;
+    grid-gap: 2px;
 `
 
 const Window = styled.div`
     height: 500px;
     width: 500px;
     background-color: #faf4e4;
-    border: 15px solid rgba(0,83,241,1);
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
 `
 
 function setSize(lineWidth,setLineWidth){
@@ -85,7 +85,7 @@ function paintBucket(canvasRef, lineColor){
   //ctx.drawImage(dataURL, 0, 0);
 }
 
-function Paint() {
+function Paint(color) {
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
@@ -129,7 +129,7 @@ function Paint() {
 
     return (
       <>
-        <Window></Window>
+        <Window color={color.color}></Window>
         <PaintButtons>
             <button onClick={() => {setColor(lineColor,setLineColor)}}>{lineColor}</button>
             <button onClick={() => {setSize(lineWidth,setLineWidth)}}>{lineWidth}</button>

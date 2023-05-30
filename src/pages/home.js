@@ -66,14 +66,19 @@ const InfoTarefas = styled.div`
     font-size: 25px;
 `
 
-const ButtonsConfig = styled.div`
+const ImagesTarefas = styled.div`
     position:fixed;
     display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 1px;
-    border: 15px solid rgba(0,83,241,1);
-    background-color: #faf4e4;
-    padding:50px;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 35px;
+    left: 0px;
+    top: 350px;
+`
+
+const Options = styled.div`
+    display:flex;
+    color: black;
+    &:hover {background-color: #88bee7;}
 `
 
 const Buttons = styled.div`
@@ -86,20 +91,54 @@ const Buttons = styled.div`
     border-radius: 24px;
     appearance: none;
     cursor: pointer;
-    :hover {
-        background-color: black;
-    }
+    :hover {background-color: black;}
+`
+
+const AppDiv = styled.div`
+    background-image: url(${p => (p.background)});
+    background-repeat: no-repeat;
+    background-size: 2000px 700px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+`
+
+const Bottom = styled.div`
+    position:fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgb(0,83,241);
+    background: linear-gradient(0deg, hsl(${p => (p.color)}, 100%, 47%) 85%, hsl(${p => (p.color)}, 100%, 67%) 100%);
+`
+
+const ButtonsConfig = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1px;
+    background-color: #faf4e4;
+    padding:50px;
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
+`
+
+const Img = styled.img`
+    &:hover {background-color: #88bee7;}
 `
 
 function Home() {
     const [app, setApp] = useState("folder");
     const [tarefas, setTarefas] = useState(false);
     const [background, setBackground] = useState(XP);
-    const [color, setColor] = useState("#0053f1");
+    const [color, setColor] = useState(219); //#0053f1
 
     function Configurations(){
         return (
-            <ButtonsConfig>
+            <ButtonsConfig color={color}>
                 <Buttons onClick={() =>{ChangeColor()}}>Mudar cor da interface</Buttons>
                 <Buttons onClick={() =>{ChangeBack()}}>Mudar background</Buttons>
             </ButtonsConfig>
@@ -115,75 +154,94 @@ function Home() {
     }
 
     function ChangeColor(){
-        switch(color) {
-            case "#0053f1" : setColor("#00cc99"); break;
-            case "#00cc99" : setColor("#d32027"); break;
-            case "#d32027" : setColor("#ff97d1"); break;
-            default : setColor("#0053f1"); break;
+        switch(color) { /*
+            case "219" : setColor("165"); break;
+            case "165" : setColor("357"); break;
+            case "357" : setColor("326"); break;
+            default : setColor("219"); break; */
+            case 349 : setColor(9); break;
+            default : setColor(color + 20); break;
         }
     }
 
-    const AppDiv = styled.div`
-        background-image: url(${background});
-        background-repeat: no-repeat;
-        background-size: 2000px 700px;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-    `
-    const Bottom = styled.div`
-        position:fixed;
-        bottom: 0px;
-        left: 0px;
-        width: 100%;
-        height: 30px;
-        margin-left: auto;
-        margin-right: auto;
-        background: rgb(0,83,241);
-        background: linear-gradient(0deg, ${color} 90%, rgba(86,144,255,1) 100%);
-    `
+    function BarradeTarefas(){
+        return (
+            <>
+                <BarraTarefas><img src={barra} alt="barra de tarefas" width={320} height={320}></img></BarraTarefas>
+                <InfoTarefas>User</InfoTarefas>
+                <ImagesTarefas>
+                    <Options onClick={() => {setApp("note")}}>
+                        <img src={notepad} alt="this is notepad" width={40} height={40}/>
+                        <p>Notepad</p>
+                    </Options>
+                    <Options onClick={() => {setApp("folder")}} >
+                    <img src={folder} alt="this is folder" width={40} height={40}/>
+                    <p>Files</p>
+                    </Options>
+                    <Options onClick={() => {setApp("paint")}}>
+                        <img src={paint} alt="this is paint" width={40} height={40}/>
+                        <p>Paint</p>
+                    </Options>
+                    <Options onClick={() => {setApp("config")}}>
+                        <img src={config} alt="this is configurations" width={40} height={40}/>
+                        <p>Config</p>
+                    </Options>
+                    <Options onClick={() => {setApp("doom")}}>
+                        <img src={doom} alt="this is doom" width={40} height={40}/>
+                        <p>Not Doom</p>
+                    </Options>
+                    <Options onClick={() => {setApp("clock")}}>
+                        <img src={clock} alt="this is clock" width={40} height={40}/>
+                        <p>Clock</p>
+                    </Options>
+                    <Options onClick={() => {setApp("campominado")}}>
+                        <img src={Minesweeper} alt="this is Minesweeper" width={40} height={40}/>
+                        <p>Minesweeper</p>
+                    </Options>
+                    <Options>
+                        <img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
+                        <p>Tictactoe</p>
+                    </Options>
+                </ImagesTarefas>
+            </>
+        )
+    }
+
     return (
-        <AppDiv>
-            <Bottom><Button onClick={() => {setTarefas(!tarefas)}}>Start</Button></Bottom> 
+        <AppDiv background={background}>
+            <Bottom color={color}><Button onClick={() => {setTarefas(!tarefas)}}>Start</Button></Bottom> 
             {
-                (tarefas) ?
-                    <> 
-                        <BarraTarefas><img src={barra} alt="barra de tarefas" width={320} height={320}></img></BarraTarefas>
-                        <InfoTarefas>User</InfoTarefas> 
-                    </>
-                    : <></>
-            }
-            {
-                (app == "paint") ? <Paint/> :  
-                (app == "calc") ? <Calc/> :
-                (app == "clock") ? <Clock/> :  
-                (app == "note") ? <Note/> :
-                (app == "folder") ? <Folder/> :
-                (app == "tictactoe") ? <Tictactoe/> :
-                (app == "campominado") ? <CampoMinado/> :
-                (app == "internet") ? <Internet/> :
+                (app == "paint") ? <Paint color={color}/> :  
+                (app == "calc") ? <Calc color={color}/> :
+                (app == "clock") ? <Clock color={color}/> :  
+                (app == "note") ? <Note color={color}/> :
+                (app == "folder") ? <Folder color={color}/> :
+                (app == "tictactoe") ? <Tictactoe color={color}/> :
+                (app == "campominado") ? <CampoMinado color={color}/> :
+                (app == "internet") ? <Internet color={color}/> :
                 (app == "config") ? Configurations() :
-                (app == "doom") ? <Doom/> :
+                (app == "doom") ? <Doom color={color}/> :
                 <PDF/>
             }
+            {
+                (tarefas) ? BarradeTarefas() : <></>
+            }
             <Images>
-                <img src={notepad} onClick={() => {setApp("note")}} alt="this is notepad" width={40} height={40}/>
-                <img src={paint} onClick={() => {setApp("paint")}} alt="this is paint" width={40} height={40}/>
-                <img src={clock} onClick={() => {setApp("clock")}} alt="this is clock" width={40} height={40}/>
-                <img src={terminal} alt="this is terminal" width={40} height={40}/>
-                <img src={calculator} onClick={() => {setApp("calc")}} alt="this is terminal" width={40} height={40}/>
-                <img src={photoshop} alt="this is phothoshop" width={40} height={40}/>
-                <img src={folder} onClick={() => {setApp("folder")}} alt="this is folder" width={40} height={40}/>
-                <img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
-                <img src={Minesweeper} onClick={() => {setApp("campominado")}} alt="this is Minesweeper" width={40} height={40}/>
-                <img src={explorer} onClick={() => {setApp("internet")}} alt="this is edge" width={40} height={40}/>
-                <img src={config} onClick={() => {setApp("config")}} alt="this is configurations" width={40} height={40}/>
-                <img src={doom} onClick={() => {setApp("doom")}} alt="this is doom" width={40} height={40}/>
+                <Img src={notepad} onClick={() => {setApp("note")}} alt="this is notepad" width={40} height={40}/>
+                <Img src={paint} onClick={() => {setApp("paint")}} alt="this is paint" width={40} height={40}/>
+                <Img src={clock} onClick={() => {setApp("clock")}} alt="this is clock" width={40} height={40}/>
+                <Img src={terminal} alt="this is terminal" width={40} height={40}/>
+                <Img src={calculator} onClick={() => {setApp("calc")}} alt="this is terminal" width={40} height={40}/>
+                <Img src={photoshop} alt="this is phothoshop" width={40} height={40}/>
+                <Img src={folder} onClick={() => {setApp("folder")}} alt="this is folder" width={40} height={40}/>
+                <Img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
+                <Img src={Minesweeper} onClick={() => {setApp("campominado")}} alt="this is Minesweeper" width={40} height={40}/>
+                <Img src={explorer} onClick={() => {setApp("internet")}} alt="this is edge" width={40} height={40}/>
+                <Img src={config} onClick={() => {setApp("config")}} alt="this is configurations" width={40} height={40}/>
+                <Img src={doom} onClick={() => {setApp("doom")}} alt="this is doom" width={40} height={40}/>
             </Images>
         </AppDiv>
     );
 }
-//<ExitBtn>X</ExitBtn>
+
 export default Home;

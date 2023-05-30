@@ -3,10 +3,10 @@ import React, { useState} from 'react';
 
 const ButtonsCalc = styled.div`
     position:fixed;
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 2px;
-    border: 15px solid rgba(0,83,241,1);
     background-color: #faf4e4;
     padding:55px;
 `
@@ -72,11 +72,11 @@ function setValue(setX, x, y){
     if (newX.toString().length < 52) setX(newX);
 }
 
-function Calc() { 
+function Calc(color) { 
     const [x, setX] = useState("0");
     return (
         <>
-            <ButtonsCalc>
+            <ButtonsCalc color={color.color}>
                 <Buttons onClick={() => {setValue(setX, x, "7")}}>7</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "8")}}>8</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "9")}}>9</Buttons>

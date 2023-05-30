@@ -5,13 +5,11 @@ import ponteiro2 from '../img/ponteiro2.png';
 import ponteiro3 from '../img/ponteiro3.png';
 import React, {useState} from 'react';
 
-//const date = new Date;
-
 const TicTac = styled.div`
     position:relative;
     width: auto;
     height: auto;
-    border: 15px solid #0053f1;
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
 `
 
 function setTime(time){
@@ -24,7 +22,7 @@ function setTime(time){
     return newTime;
 }
 
-function Clock() {
+function Clock(color) {
     const [date, setDate] = useState(new Date);
     setInterval(function () {setDate(new Date)}, 1000);
     
@@ -44,7 +42,7 @@ function Clock() {
     `
     return (
         <>
-            <TicTac><img src={clock} alt="clockapp" width={480} height={480}/></TicTac>
+            <TicTac color={color.color}><img src={clock} alt="clockapp" width={480} height={480}/></TicTac>
             <PointerHour><img src={ponteiro} alt="horas" width={96} height={96} seconds={60} /></PointerHour>
             <PointerMinutes><img src={ponteiro3} alt="minutos" width={96} height={96} seconds={60} /></PointerMinutes>
             <PointerSeconds><img src={ponteiro2} alt="segundos" width={96} height={96} seconds={60} /></PointerSeconds>

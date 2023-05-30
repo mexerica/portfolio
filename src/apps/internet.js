@@ -3,7 +3,7 @@ import {useRef,useState} from 'react';
 
 const WebBrowser = styled.iframe`
     position:relative;
-    border: 15px solid rgba(0,83,241,1);
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
 `
 
 const SearchBar = styled.div`
@@ -20,12 +20,12 @@ function changeWebSite(ref, setSite){
     else setSite(newUrl)
 }
 
-function Internet() {
+function Internet(color) {
     const ref = useRef("https://wikipedia.com/");
     const [site, setSite] = useState(ref.current);
     return (
         <>
-            <WebBrowser iframe src={site} height="500" width="750"></WebBrowser>
+            <WebBrowser color={color.color} iframe src={site} height="500" width="750"></WebBrowser>
             <SearchBar>
                 <input type='text' ref={ref}></input>
                 <button onClick={() =>{changeWebSite(ref, setSite)}}>Search</button>

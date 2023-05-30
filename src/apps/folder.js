@@ -10,6 +10,7 @@ import js from "../img/js.png";
 import node from "../img/node.png";
 import react from "../img/react.png";
 import lua from "../img/lua.png";
+import angular from "../img/angular.png"
 import curriculo from "../data/curriculo.pdf";
 
 const Folders = styled.div`
@@ -22,7 +23,7 @@ const Folders = styled.div`
     color: black;
     font-size: 8px;
     background-color: #faf4e4;
-    border: 15px solid rgba(0,83,241,1);
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
 `
 
 const AFolder = styled.div`
@@ -32,10 +33,10 @@ const AFolder = styled.div`
     }
 `
 
-function Folder(){
+function Folder(color){
     const [path, setPath] = useState("home");
     return (
-        <Folders>
+        <Folders color={color.color}>
             {
                 (path == "home") ?  
                     <>
@@ -110,6 +111,10 @@ function Folder(){
                         <AFolder>
                             <img src={react} alt="a folder" width={80} height={80}/>
                             <h1>ReactJS</h1>
+                        </AFolder>
+                        <AFolder>
+                            <img src={angular} alt="a folder" width={80} height={80}/>
+                            <h1>Angular</h1>
                         </AFolder>
                         <AFolder>
                             <img src={lua} alt="a folder" width={80} height={80}/>

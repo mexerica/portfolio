@@ -11,11 +11,12 @@ const Fixed = styled.div`
 
 const GameScreen = styled.div`
     position:relative;
-    border: 15px solid rgba(0,83,241,1);
     background-color: #faf4e4;
 `
 
 const Game = styled.div`
+    position:fixed;
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 0.1px;
@@ -64,13 +65,12 @@ function resetBoard(setXY){
     type = tac;
 }
 
-function Tictactoe() {
+function Tictactoe(color) {
     const [xy, setXY] = useState([empty, empty, empty, empty, empty, empty, empty, empty, empty]);
     return (
         <>
             <GameScreen><img src={tic} alt="board" width={480} height={480}/></GameScreen>
-            <Fixed> 
-                <Game>
+                <Game color={color.color}>
                     <img src={xy[0]} onClick={() => {updateBoard(xy, setXY, 0)}} alt="x" width={160} height={160}/>
                     <img src={xy[1]} onClick={() => {updateBoard(xy, setXY, 1)}} alt="x" width={160} height={160}/>
                     <img src={xy[2]} onClick={() => {updateBoard(xy, setXY, 2)}} alt="x" width={160} height={160}/>
@@ -81,7 +81,6 @@ function Tictactoe() {
                     <img src={xy[7]} onClick={() => {updateBoard(xy, setXY, 7)}} alt="x" width={160} height={160}/>
                     <img src={xy[8]} onClick={() => {updateBoard(xy, setXY, 8)}} alt="x" width={160} height={160}/>
                 </Game>
-            </Fixed>
             <BtnReset onClick={() => {resetBoard(setXY)}}><button>Reset</button></BtnReset>
         </>
     );

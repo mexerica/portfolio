@@ -14,7 +14,7 @@ const Txt = styled.textarea`
     position:fixed;
     resize: none;
     bottom: 80px;
-    border: 15px solid rgba(0,83,241,1);
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
     background-color: #faf4e4;
     padding: 10px;
     resize: none;
@@ -33,7 +33,7 @@ const SearchBtn = styled.div`
     bottom: 80px;
 `
 
-function Note() {
+function Note(color) {
     const ref = useRef("abacate");
     function guardTxt(){
         const element = document.createElement("a");
@@ -52,7 +52,7 @@ function Note() {
 
     return (
         <>
-            <Txt ref={ref} rows="30" cols="60" id="TITLE" placeholder="Write here."></Txt>
+            <Txt color={color.color} ref={ref} rows="30" cols="60" id="TITLE" placeholder="Write here."></Txt>
             <SaveBtn>
                 <button onClick={() =>{guardTxt()}}>Save</button>
                 <button onClick={() =>{ref.current.value =  ""}}>Clear</button>

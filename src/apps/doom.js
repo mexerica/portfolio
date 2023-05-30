@@ -18,7 +18,7 @@ const Screen = styled.canvas`
     position:fixed;
     background-color:white;
     color:black;
-    border: 15px solid rgba(0,83,241,1);
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
     box-sizing: border-box;
 `
 
@@ -166,7 +166,7 @@ function shooting(setGun){
 
 const player = {x: 32 * 1.5, y: 32 * 2, angle: 0 * Math.PI / 180, speed: 0};
 
-function Doom() { 
+function Doom(color) { 
     const doomRef = useRef(null);
     const [gun, setGun] = useState(doomgun)
 
@@ -189,7 +189,7 @@ function Doom() {
     useEffect(() => {setInterval(() => {loop(doomRef)}, 1)}, []);
     return (
         <>
-            <Screen onClick={() =>{shooting(setGun)}} ref={doomRef} height="500" width="500" ></Screen>
+            <Screen color={color.color} onClick={() =>{shooting(setGun)}} ref={doomRef} height="500" width="500" ></Screen>
             <BigFGun><img src={gun} alt="arminha piu piu"/></BigFGun>
         </>
     );

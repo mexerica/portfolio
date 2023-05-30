@@ -13,7 +13,7 @@ import bomba5 from '../img/5bomba.png';
 
 const Back = styled.div`
     position:relative;
-    border: 15px solid rgba(0,83,241,1);
+    border: 15px solid hsl(${p => (p.color)}, 100%, 47%);
     background-color: #faf4e4;
 `
 
@@ -161,7 +161,7 @@ function resetarCampo(setMina){
     criarResposta(0);
 }
 
-function CampoMinado() {
+function CampoMinado(color) {
     const [mina, setMina] = useState([
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
         [bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco, bloco],
@@ -175,7 +175,7 @@ function CampoMinado() {
     ]);
     return (
         <>
-            <Back><img src={campo} alt="campo" width={480} height={480}/></Back>
+            <Back color={color.color}><img src={campo} alt="campo" width={480} height={480}/></Back>
             <Board>{criandoCampo(mina, setMina)}</Board>
             <Smile><img src={smile} onClick={() =>{(resetarCampo(setMina))}} alt="campo" width={72} height={72}/></Smile>
         </>
