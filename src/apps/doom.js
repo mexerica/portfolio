@@ -168,7 +168,7 @@ const player = {x: 32 * 1.5, y: 32 * 2, angle: 0 * Math.PI / 180, speed: 0};
 
 function Doom(color) { 
     const doomRef = useRef(null);
-    const [gun, setGun] = useState(doomgun)
+    const [gun, setGun] = useState(doomgun);
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "ArrowUp" || e.key === "w") player.speed = 2;
@@ -181,15 +181,22 @@ function Doom(color) {
     document.addEventListener("keyup", (e) => {
         if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "w" || e.key === "s") player.speed = 0;
     });
-      
+
     document.addEventListener("mousemove", function (e) {
         player.angle += e.movementX * Math.PI / 180;
+        console.log(e.clientX)
     });
-    
+
+    const isMouseInBound = (e) => {
+        const eleBounds = doomRef.current.getBoundingClientRect();
+        if (e.clientX >= eleBounds.left && e.clientX <= eleBounds.right) console.log(true);
+        else console.log(false);
+    };
+      
     useEffect(() => {setInterval(() => {loop(doomRef)}, 1)}, []);
     return (
         <>
-            <Screen color={color.color} onClick={() =>{shooting(setGun)}} ref={doomRef} height="500" width="500" ></Screen>
+            <Screen color={color.color} onClick={() =>{shooting()}} ref={doomRef} onMouseMove={isMouseInBound} height="500" width="500" ></Screen>
             <BigFGun><img src={gun} alt="arminha piu piu"/></BigFGun>
         </>
     );
