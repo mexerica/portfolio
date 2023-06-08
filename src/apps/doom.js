@@ -2,14 +2,15 @@ import styled from 'styled-components';
 import React, {useRef, useEffect, useState} from 'react';
 import doomgun from "../img/doomgun.png";
 import doomshooting from "../img/doomgunshooting.png";
+import zilaball from "../img/wolfWall.png";
 
 const map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 2, 2, 0, 1, 1, 0, 1],
-    [1, 0, 2, 2, 0, 1, 1, 0, 1],
+    [1, 0, 2, 0, 3, 0, 4, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 5, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
@@ -64,7 +65,7 @@ function outOfMapBounds(x, y) {
     return x < 0 || x >= map[0].length || y < 0 || y >= map.length;
 }
 
-function getVCollision(angle) {
+function getVCollision(angle,pattern) {
     const right = Math.abs(Math.floor((angle - Math.PI / 2) / Math.PI) % 2);
     const firstX = right ? Math.floor(player.x / 32) * 32 + 32 : Math.floor(player.x / 32) * 32;
     const firstY = player.y + (firstX - player.x) * Math.tan(angle);
@@ -80,6 +81,9 @@ function getVCollision(angle) {
       if (outOfMapBounds(cellX, cellY)) break;
       wall = map[cellY][cellX];
       if (wall == 2) color = "#6bcdb3"; 
+      //else if (wall == 3) color = pattern; 
+      else if (wall == 4) color = "#962e33";
+      else if (wall == 5) color = "#bff412";
       if (!wall) {
         nextX += xA;
         nextY += yA;
@@ -88,7 +92,7 @@ function getVCollision(angle) {
     return {angle, distance: distance(player.x, player.y, nextX, nextY), vertical: true, color};
   }
   
-  function getHCollision(angle) {
+  function getHCollision(angle, pattern) {
     const up = Math.abs(Math.floor(angle / Math.PI) % 2);
     const firstY = up ? Math.floor(player.y / 32) * 32 : Math.floor(player.y / 32) * 32 + 32;
     const firstX = player.x + (firstY - player.y) / Math.tan(angle);
@@ -103,7 +107,10 @@ function getVCollision(angle) {
       const cellY = up ? Math.floor(nextY / 32) - 1 : Math.floor(nextY / 32);
       if (outOfMapBounds(cellX, cellY))  break;
       wall = map[cellY][cellX];
-      if (wall == 2) color = "#00b0aa"; 
+      if (wall == 2) color = "#00b0aa";
+      //else if (wall == 3) color = pattern;
+      else if (wall == 4) color = "#782428"; 
+      else if (wall == 5) color = "#98c30e";
       if (!wall) {
         nextX += xA;
         nextY += yA;
@@ -112,19 +119,19 @@ function getVCollision(angle) {
     return {angle, distance: distance(player.x, player.y, nextX, nextY), vertical: false, color};
 }
 
-function castRay(angle) {
-    const vCollision = getVCollision(angle);
-    const hCollision = getHCollision(angle);
+function castRay(angle, pattern) {
+    const vCollision = getVCollision(angle, pattern);
+    const hCollision = getHCollision(angle, pattern);
     return hCollision.distance >= vCollision.distance ? vCollision : hCollision;
 }
 
-function getRays() {
+function getRays(pattern) {
     const initialAngle = player.angle - (60 * Math.PI) / 180 /2;
     const numberOfRays = 500;
     const angleStep = ((60 * Math.PI) / 180) / numberOfRays;
     return Array.from({ length: numberOfRays }, (_, i) => {
       const angle = initialAngle + i * angleStep;
-      const ray = castRay(angle);
+      const ray = castRay(angle, pattern);
       return ray;
     });
 }
@@ -132,7 +139,7 @@ function getRays() {
 function renderScene(rays, ctx) {
     rays.forEach((ray, i) => {
         const distance = ray.distance * Math.cos(ray.angle - player.angle)
-        const wallHeight = ((32 * 5) / distance) * 277;
+        const wallHeight = ((32 * 5) / distance) * 277; 
         ctx.fillStyle = ray.color;
         ctx.fillRect(i, 500 / 2 - wallHeight / 2, 1, wallHeight);
         ctx.fillStyle = "#d52b1e";
@@ -140,16 +147,17 @@ function renderScene(rays, ctx) {
     });
 }
 
-function loop(doomRef){
+function loop(doomRef, img){
     const canvas = doomRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height); // limpando a tela
+    const pattern = ctx.createPattern(img, "no-repeat");
     player.x += Math.cos(player.angle) * player.speed;
     if (player.x < 40 | player.x > 238) player.x -= Math.cos(player.angle) * player.speed;
     player.y += Math.sin(player.angle) * player.speed;
     if (player.y < 40 | player.y > 210) player.y -= Math.sin(player.angle) * player.speed;
     //console.log(map[player.x / 40 | 0][player.y / 40 | 0]);
-    const rays = getRays();
+    const rays = getRays(pattern);
     renderScene(rays,ctx);
     renderMinimap(0, 0, 0.75, getRays(), ctx); 
 }
@@ -194,7 +202,12 @@ function Doom(color) {
         else console.log(false);
     };
       
-    useEffect(() => {setInterval(() => {loop(doomRef)}, 1)}, []);
+    //useEffect(() => {setInterval(() => {loop(doomRef)}, 1)}, []);
+    useEffect(() => {
+        const img = new Image();
+        img.src = zilaball;
+        img.onload = () => setInterval(() => {loop(doomRef, img)},1);
+    });
     return (
         <>
             <Screen color={color.color} onClick={() =>{shooting(setGun)}} ref={doomRef} onMouseOver={() =>{movePlayer()}} height="500" width="500" ></Screen>
