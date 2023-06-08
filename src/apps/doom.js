@@ -4,14 +4,14 @@ import doomgun from "../img/doomgun.png";
 import doomshooting from "../img/doomgunshooting.png";
 
 const map = [
-    [1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 2, 2, 0, 0, 1],
-    [1, 0, 0, 2, 2, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 2, 2, 0, 1, 1, 0, 1],
+    [1, 0, 2, 2, 0, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
 const Screen = styled.canvas`
@@ -137,8 +137,6 @@ function renderScene(rays, ctx) {
         ctx.fillRect(i, 500 / 2 - wallHeight / 2, 1, wallHeight);
         ctx.fillStyle = "#d52b1e";
         ctx.fillRect(i,500/2 + wallHeight / 2,1,500/2 - wallHeight / 2);
-        //ctx.fillStyle = "#ffffff";
-        //ctx.fillRect(i, 0, 1, 500/2 - wallHeight / 2);
     });
 }
 
@@ -147,21 +145,29 @@ function loop(doomRef){
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height); // limpando a tela
     player.x += Math.cos(player.angle) * player.speed;
+    if (player.x < 40 | player.x > 238) player.x -= Math.cos(player.angle) * player.speed;
     player.y += Math.sin(player.angle) * player.speed;
+    if (player.y < 40 | player.y > 210) player.y -= Math.sin(player.angle) * player.speed;
+    //console.log(map[player.x / 40 | 0][player.y / 40 | 0]);
     const rays = getRays();
     renderScene(rays,ctx);
     renderMinimap(0, 0, 0.75, getRays(), ctx); 
 }
 
 function shooting(setGun){
-    //setGun()
     let count = 0;
     const myInterval = setInterval(() => {
         if (count === 0) setGun(doomshooting)
         else if (count === 1) setGun(doomgun)
         else clearInterval(myInterval)
         count++;        
-    }, 800)
+    }, 400) 
+}
+
+function movePlayer(){
+    document.addEventListener("mousemove", function (e) {
+        player.angle += e.movementX * Math.PI / 180;
+    });
 }
 
 const player = {x: 32 * 1.5, y: 32 * 2, angle: 0 * Math.PI / 180, speed: 0};
@@ -182,11 +188,6 @@ function Doom(color) {
         if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "w" || e.key === "s") player.speed = 0;
     });
 
-    document.addEventListener("mousemove", function (e) {
-        player.angle += e.movementX * Math.PI / 180;
-        console.log(e.clientX)
-    });
-
     const isMouseInBound = (e) => {
         const eleBounds = doomRef.current.getBoundingClientRect();
         if (e.clientX >= eleBounds.left && e.clientX <= eleBounds.right) console.log(true);
@@ -196,7 +197,7 @@ function Doom(color) {
     useEffect(() => {setInterval(() => {loop(doomRef)}, 1)}, []);
     return (
         <>
-            <Screen color={color.color} onClick={() =>{shooting()}} ref={doomRef} onMouseMove={isMouseInBound} height="500" width="500" ></Screen>
+            <Screen color={color.color} onClick={() =>{shooting(setGun)}} ref={doomRef} onMouseOver={() =>{movePlayer()}} height="500" width="500" ></Screen>
             <BigFGun><img src={gun} alt="arminha piu piu"/></BigFGun>
         </>
     );
