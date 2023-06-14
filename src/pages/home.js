@@ -26,14 +26,19 @@ import CampoMinado from "../apps/campoMinado";
 import Internet from '../apps/internet';
 import Doom from '../apps/doom';
 import XP from "../img/windowxp.jpeg";
+import Icon from "../img/XPicon.png";
 
 
 const Button = styled.div`
     width: 30px;
-    padding: 5px 25px;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 700;
-    background-color: green;
+    padding: 5px 25px;
+    font-family: Arial, Verdana;   
+    background: green url(http://www.rw-designer.com/icon-view/18835.png);
+    background-size: 20px 20px;
+    background-position: 6px 5px;
+    background-repeat: no-repeat;
     border: 0px;
     border-radius: 12px;
     appearance: none;
@@ -70,7 +75,7 @@ const ImagesTarefas = styled.div`
     position:fixed;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 35px;
+    grid-column-gap: 25px;
     left: 0px;
     top: 350px;
 `
@@ -78,6 +83,7 @@ const ImagesTarefas = styled.div`
 const Options = styled.div`
     display:flex;
     color: black;
+    border-bottom: ${p => (p.border)};
     &:hover {background-color: #88bee7;}
 `
 
@@ -113,7 +119,6 @@ const Bottom = styled.div`
     height: 30px;
     margin-left: auto;
     margin-right: auto;
-    background: rgb(0,83,241);
     background: linear-gradient(0deg, hsl(${p => (p.color)}, 100%, 47%) 85%, hsl(${p => (p.color)}, 100%, 67%) 100%);
 `
 
@@ -130,17 +135,25 @@ const Img = styled.img`
     &:hover {background-color: #88bee7;}
 `
 
+const Input = styled.input`
+    border: 2px solid black;
+    border-radius: 24px;
+    color: #0096ff;
+`
+
 function Home() {
     const [app, setApp] = useState("folder");
     const [tarefas, setTarefas] = useState(false);
     const [background, setBackground] = useState(XP);
     const [color, setColor] = useState(219); //#0053f1
+    const [name, setName] = useState("User")
 
     function Configurations(){
         return (
             <ButtonsConfig color={color}>
                 <Buttons onClick={() =>{ChangeColor()}}>Mudar cor da interface</Buttons>
                 <Buttons onClick={() =>{ChangeBack()}}>Mudar background</Buttons>
+                <Input type="text" name="name" placeholder="Mude seu nome" maxlength="18" onChange={(event) => setName(event.target.value)}></Input>
             </ButtonsConfig>
         )
     }
@@ -149,16 +162,13 @@ function Home() {
         switch(background) {
             case XP : setBackground(win98); break;
             case win98 : setBackground(loading); break;
+            case win98 : setBackground(Icon); break;
             default : setBackground(XP); break;
         }
     }
 
     function ChangeColor(){
-        switch(color) { /*
-            case "219" : setColor("165"); break;
-            case "165" : setColor("357"); break;
-            case "357" : setColor("326"); break;
-            default : setColor("219"); break; */
+        switch(color) {
             case 349 : setColor(9); break;
             default : setColor(color + 20); break;
         }
@@ -168,40 +178,42 @@ function Home() {
         return (
             <>
                 <BarraTarefas><img src={barra} alt="barra de tarefas" width={320} height={320}></img></BarraTarefas>
-                <InfoTarefas>User</InfoTarefas>
+                <InfoTarefas>{name}</InfoTarefas>
                 <ImagesTarefas>
-                    <Options onClick={() => {setApp("note")}}>
-                        <img src={notepad} alt="this is notepad" width={40} height={40}/>
+                    <Options onClick={() => {setApp("note")}} border="1px solid #d5d5d5" >
+                        <img src={notepad} alt="this is notepad" width={50} height={50}/>
                         <p>Notepad</p>
                     </Options>
-                    <Options onClick={() => {setApp("folder")}} >
-                    <img src={folder} alt="this is folder" width={40} height={40}/>
+                    <Options onClick={() => {setApp("folder")}} border="none" >
+                    <img src={folder} alt="this is folder" width={50} height={50}/>
                     <p>Files</p>
                     </Options>
-                    <Options onClick={() => {setApp("paint")}}>
-                        <img src={paint} alt="this is paint" width={40} height={40}/>
+                    <Options onClick={() => {setApp("paint")}} border="none">
+                        <img src={paint} alt="this is paint" width={50} height={50}/>
                         <p>Paint</p>
                     </Options>
-                    <Options onClick={() => {setApp("config")}}>
-                        <img src={config} alt="this is configurations" width={40} height={40}/>
+                    <Options onClick={() => {setApp("config")}} border="1px solid #7caacd">
+                        <img src={config} alt="this is configurations" width={50} height={50}/>
                         <p>Config</p>
                     </Options>
-                    <Options onClick={() => {setApp("doom")}}>
-                        <img src={doom} alt="this is doom" width={40} height={40}/>
+                    <Options onClick={() => {setApp("doom")}} border="none">
+                        <img src={doom} alt="this is doom" width={50} height={50}/>
                         <p>Not Doom</p>
                     </Options>
-                    <Options onClick={() => {setApp("clock")}}>
-                        <img src={clock} alt="this is clock" width={40} height={40}/>
+                    <Options onClick={() => {setApp("clock")}} border="1px solid #7caacd">
+                        <img src={clock} alt="this is clock" width={50} height={50}/>
                         <p>Clock</p>
                     </Options>
-                    <Options onClick={() => {setApp("campominado")}}>
-                        <img src={Minesweeper} alt="this is Minesweeper" width={40} height={40}/>
+                    <Options onClick={() => {setApp("campominado")}} border="none">
+                        <img src={Minesweeper} alt="this is Minesweeper" width={50} height={50}/>
                         <p>Minesweeper</p>
                     </Options>
-                    <Options>
-                        <img src={tictactoe} onClick={() => {setApp("tictactoe")}} alt="this is phothoshop" width={40} height={40}/>
+                    <Options onClick={() => {setApp("tictactoe")}} border="none">
+                        <img src={tictactoe} alt="this is phothoshop" width={50} height={50}/>
                         <p>Tictactoe</p>
                     </Options>
+                    <br />
+                    
                 </ImagesTarefas>
             </>
         )
@@ -209,7 +221,9 @@ function Home() {
 
     return (
         <AppDiv background={background}>
-            <Bottom color={color}><Button onClick={() => {setTarefas(!tarefas)}}>Start</Button></Bottom> 
+            <Bottom color={color}>
+                <Button onClick={() => {setTarefas(!tarefas)}} background={Icon}>Start</Button>
+            </Bottom> 
             {
                 (app == "paint") ? <Paint color={color}/> :  
                 (app == "calc") ? <Calc color={color}/> :
