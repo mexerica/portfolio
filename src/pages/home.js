@@ -15,6 +15,9 @@ import config from '../img/config.png';
 import doom from "../img/doom.png";
 import loading from "../img/loading.gif";
 import win98 from "../img/win98.png";
+import XP from "../img/windowxp.jpeg";
+import Icon from "../img/XPicon.png";
+import chessIcon from "../img/chess.png";
 import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
 import Calc from '../apps/calculator';
@@ -25,9 +28,7 @@ import Tictactoe from "../apps/tictactoe";
 import CampoMinado from "../apps/campoMinado";
 import Internet from '../apps/internet';
 import Doom from '../apps/doom';
-import XP from "../img/windowxp.jpeg";
-import Icon from "../img/XPicon.png";
-
+import Chess from '../apps/chess';
 
 const Button = styled.div`
     width: 30px;
@@ -235,6 +236,7 @@ function Home() {
                 (app == "internet") ? <Internet color={color}/> :
                 (app == "config") ? Configurations() :
                 (app == "doom") ? <Doom color={color}/> :
+                (app == "chess") ? <Chess color={color}/> :
                 <PDF/>
             }
             {
@@ -253,6 +255,7 @@ function Home() {
                 <Img src={explorer} onClick={() => {setApp("internet")}} alt="this is edge" width={40} height={40}/>
                 <Img src={config} onClick={() => {setApp("config")}} alt="this is configurations" width={40} height={40}/>
                 <Img src={doom} onClick={() => {setApp("doom")}} alt="this is doom" width={40} height={40}/>
+                <Img src={chessIcon} onClick={() => {setApp("chess")}} alt="this is chess" width={40} height={40}/>
             </Images>
         </AppDiv>
     );

@@ -5,10 +5,6 @@ import tic from '../img/tic.png';
 import tac from '../img/tac.png';
 import toe from '../img/toe.png';
 
-const Fixed = styled.div`
-    position:fixed;
-`
-
 const GameScreen = styled.div`
     position:relative;
     background-color: #faf4e4;
