@@ -33,7 +33,20 @@ function selecionarPeça(piece, rows, setPieces){
 }
 */
 
-function moverPeças(Pieces, selecionar, setPieces){
+
+function podeMover(selecionar, newBoard, i, j) { 
+    switch (selecionar[0]) {
+        case pawn: if (selecionar[1] === i + 1 && selecionar[2] === j) return true; break;
+        case king: if (selecionar[1] === i + 1 || selecionar[2] === j + 1 || selecionar[1] === i - 1 || selecionar[2] === j - 1) return true; break;
+        case tower: if (selecionar[1] === i || selecionar[2] === j) return true; break;
+        //case bishop: if (selecionar[1] != i && selecionar[2] != j && selecionar[1] - i === selecionar[2] - j) return true; break;
+        case horse: if (((selecionar[1] === i + 1 || selecionar[1] === i - 1) && (selecionar[2] === j - 2 || selecionar[2] === j + 2)) || ((selecionar[1] === i + 2 || selecionar[1] === i - 2) && (selecionar[2] === j - 1 || selecionar[2] === j + 1))) return true; break;
+        default: return false;
+    } 
+    return false;
+} 
+
+function moverPeças(rows, Pieces, selecionar, setPieces, i, j){
     let newBoard = [
         [Pieces[0][0], Pieces[0][1], Pieces[0][2], Pieces[0][3], Pieces[0][4], Pieces[0][5], Pieces[0][6], Pieces[0][7]],
         [Pieces[1][0], Pieces[1][1], Pieces[1][2], Pieces[1][3], Pieces[1][4], Pieces[1][5], Pieces[1][6], Pieces[1][7]],
@@ -43,9 +56,12 @@ function moverPeças(Pieces, selecionar, setPieces){
         [Pieces[5][0], Pieces[5][1], Pieces[5][2], Pieces[5][3], Pieces[4][4], Pieces[5][5], Pieces[5][6], Pieces[5][7]],
         [Pieces[6][0], Pieces[6][1], Pieces[6][2], Pieces[6][3], Pieces[6][4], Pieces[6][5], Pieces[6][6], Pieces[6][7]],
         [Pieces[7][0], Pieces[7][1], Pieces[7][2], Pieces[7][3], Pieces[7][4], Pieces[7][5], Pieces[7][6], Pieces[7][7]],
-    ]
-    //newBoard[0,0] = empty
-    setPieces(newBoard)
+    ] 
+    if (podeMover(selecionar, newBoard, i, j)) {
+        newBoard[i][j] = selecionar[0]
+        newBoard[selecionar[1]][selecionar[2]] = empty
+        setPieces(newBoard)
+    }
 }
 
 function criandoCampo(Pieces, setPieces, selecionar, setSelecionar){
@@ -55,7 +71,7 @@ function criandoCampo(Pieces, setPieces, selecionar, setSelecionar){
             rows.push(<OnePiece 
                 src={Pieces[i][j]} 
                 key={i + "-" + j} 
-                onClick={() => {(Pieces[i][j] != empty) ? setSelecionar(Pieces[i][j]) : moverPeças(Pieces, selecionar, setPieces)}} 
+                onClick={() => {(Pieces[i][j] != empty) ? setSelecionar([Pieces[i][j], i, j]) : moverPeças(rows, Pieces, selecionar, setPieces, i, j)}} 
                 alt="campo" 
                 width={48} 
                 height={48}
@@ -67,7 +83,7 @@ function criandoCampo(Pieces, setPieces, selecionar, setSelecionar){
 }
 
 function Chess(color) {
-    const [selecionar, setSelecionar] = useState(empty)
+    const [selecionar, setSelecionar] = useState([empty, 0, 0])
     const [Pieces, setPieces] = useState([
         [tower, bishop, horse, king, queen, horse, bishop, tower],
         [pawn, pawn, pawn, pawn, pawn, pawn, pawn, pawn],
