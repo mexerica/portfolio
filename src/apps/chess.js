@@ -33,14 +33,50 @@ function selecionarPeça(piece, rows, setPieces){
 }
 */
 
+function temAlgoEntre(newBoard, selecionar, i, j){
+    let x = i;
+    let y = j; 
+    while (true) {
+        if (x < selecionar[1]) x++;
+        else if (x > selecionar[1]) x--;
+        if (y < selecionar[2]) y++;
+        else if (y > selecionar[2]) y--;
+        if (x === selecionar[1] && y === selecionar[2]) return true;
+        if (newBoard[x][y] != empty) return false;
+    }
+}
+
+function checarBispo(selecionar, i, j){
+    if (selecionar[1] != i && selecionar[2] != j){
+        let casasAndadasH = selecionar[1] - i;
+        let casasAndadasV = selecionar[2] - j;
+        if (casasAndadasH < 0) casasAndadasH *= -1;
+        if (casasAndadasV < 0) casasAndadasV *= -1;
+        if (casasAndadasH === casasAndadasV) return true;
+    }
+    return false;
+}
+
+function checarCavalo(selecionar, i, j){
+    if ((selecionar[1] === i + 1 || selecionar[1] === i - 1) && (selecionar[2] === j - 2 || selecionar[2] === j + 2)) return true;
+    else if (((selecionar[1] === i + 2 || selecionar[1] === i - 2) && (selecionar[2] === j - 1 || selecionar[2] === j + 1))) return true;
+    return false
+}
 
 function podeMover(selecionar, newBoard, i, j) { 
-    switch (selecionar[0]) {
+    switch (selecionar[0]) { /*
         case pawn: if (selecionar[1] === i + 1 && selecionar[2] === j) return true; break;
         case king: if (selecionar[1] === i + 1 || selecionar[2] === j + 1 || selecionar[1] === i - 1 || selecionar[2] === j - 1) return true; break;
-        case tower: if (selecionar[1] === i || selecionar[2] === j) return true; break;
-        //case bishop: if (selecionar[1] != i && selecionar[2] != j && selecionar[1] - i === selecionar[2] - j) return true; break;
-        case horse: if (((selecionar[1] === i + 1 || selecionar[1] === i - 1) && (selecionar[2] === j - 2 || selecionar[2] === j + 2)) || ((selecionar[1] === i + 2 || selecionar[1] === i - 2) && (selecionar[2] === j - 1 || selecionar[2] === j + 1))) return true; break;
+        case tower: if (selecionar[1] === i || selecionar[2] === j) return temAlgoEntre(newBoard, selecionar, i, j); break;
+        case bishop:  if (checarBispo(selecionar, i, j)) return true; break;
+        case horse: if (checarCavalo(selecionar, i, j)) return true; break;
+        case queen: if (selecionar[1] === i || selecionar[2] === j || checarBispo(selecionar, i, j)) return true; break; */
+        case pawn: if (selecionar[1] === i + 1 && selecionar[2] === j) return temAlgoEntre(newBoard, selecionar, i, j); break;
+        case king: if (selecionar[1] === i + 1 || selecionar[2] === j + 1 || selecionar[1] === i - 1 || selecionar[2] === j - 1) return temAlgoEntre(newBoard, selecionar, i, j); break;
+        case tower: if (selecionar[1] === i || selecionar[2] === j) return temAlgoEntre(newBoard, selecionar, i, j); break;
+        case bishop:  if (checarBispo(selecionar, i, j)) return temAlgoEntre(newBoard, selecionar, i, j); break;
+        case queen: if (selecionar[1] === i || selecionar[2] === j || checarBispo(selecionar, i, j)) return temAlgoEntre(newBoard, selecionar, i, j); break;
+        case horse: if (checarCavalo(selecionar, i, j)) return true; break;
         default: return false;
     } 
     return false;
