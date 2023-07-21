@@ -67,7 +67,7 @@ function temAlgoEntre(newBoard, selecionar, i, j){
 }
 
 function checarBispo(selecionar, i, j){
-    if (selecionar[1] != i && selecionar[2] != j){
+    if (selecionar[1] !== i && selecionar[2] !== j){
         let casasAndadasH = selecionar[1] - i;
         let casasAndadasV = selecionar[2] - j;
         if (casasAndadasH < 0) casasAndadasH *= -1;
@@ -78,8 +78,11 @@ function checarBispo(selecionar, i, j){
 }
 
 function checarCavalo(selecionar, i, j){
-   if ((selecionar[1] === i + 1 || selecionar[1] === i - 1) && (selecionar[2] === j - 2 || selecionar[2] === j + 2)) return true;
-   else if (((selecionar[1] === i + 2 || selecionar[1] === i - 2) && (selecionar[2] === j - 1 || selecionar[2] === j + 1))) return true;
+   const ix = selecionar[1] - i;
+   const jx = selecionar[2] - j;
+   if (ix === jx * 2 || ix === jx * -2 || ix === jx / 2 || ix === jx / -2) return true;
+   //if ((selecionar[1] === i + 1 || selecionar[1] === i - 1) && (selecionar[2] === j - 2 || selecionar[2] === j + 2)) return true;
+   //else if (((selecionar[1] === i + 2 || selecionar[1] === i - 2) && (selecionar[2] === j - 1 || selecionar[2] === j + 1))) return true;
    return false;
 }
 
@@ -105,9 +108,9 @@ function podeMover(selecionar, newBoard, i, j) {
         case pawn: if (checarPeao(newBoard, selecionar, i, j)) return temAlgoEntre(newBoard, selecionar, i, j); break;
         case king: if (selecionar[1] === i + 1 || selecionar[2] === j + 1 || selecionar[1] === i - 1 || selecionar[2] === j - 1) return temAlgoEntre(newBoard, selecionar, i, j); break;
         case tower: if (selecionar[1] === i || selecionar[2] === j) return temAlgoEntre(newBoard, selecionar, i, j); break;
-        case bishop:  if (checarBispo(selecionar, i, j)) return temAlgoEntre(newBoard, selecionar, i, j); break;
+        case bishop: if (checarBispo(selecionar, i, j)) return temAlgoEntre(newBoard, selecionar, i, j); break;
         case queen: if (selecionar[1] === i || selecionar[2] === j || checarBispo(selecionar, i, j)) return temAlgoEntre(newBoard, selecionar, i, j); break;
-        case horse: if (checarCavalo(selecionar, i, j)) return true; break;
+        case horse: if (checarCavalo(selecionar, i, j)) return true; break; 
         default: return false;
     } 
     return false;
