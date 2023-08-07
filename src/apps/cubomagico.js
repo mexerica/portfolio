@@ -13,41 +13,38 @@ const Visao = styled.div`
 
 const Cube = styled.div`
     transform-style: preserve-3d;
-    width: 50%;
-    height: 50%;
-    position: relative;
-    animation: spin 10s infinite linear;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    transform: rotateX(150deg) rotateY(140deg);
 `
 
 const Face = styled.div`
     width: 100%;
     height: 100%;
-    background-image: url(https://th.bing.com/th/id/OIP.eFN4EoYWQDmK2pm8SIo__AHaHW?pid=ImgDet&rs=1);
     background-size: 50px;
     transform: rotateX(${p => (p.rotationX)}deg) rotateY(${p => (p.rotationY)}deg) translateZ(100px);
-
-    @keyframes spin {
-        from {
-          transform: rotateX(0deg) rotateY(0deg);
-        }
-        to {
-          transform: rotateX(360deg) rotateY(360deg);
-        }
-    }
+    background-color:${p => p.color};
 `
 
-function cuboMagico(color){
+function CuboMagico(color){
+    const [cubeFace, setFace] = useState([
+        'red','blue', 'yellow', 
+        'white','green','orange'
+
+    ]);
     return (
         <Visao color={color.color}>
             <Cube>
-                <Face rotationX={90} rotationY={0}></Face>
-                <Face rotationX={-90} rotationY={0}></Face>
-                <Face rotationX={0} rotationY={90}></Face>
-                <Face rotationX={0} rotationY={-90}></Face>
-                <Face rotationX={0} rotationY={0}></Face>
-                <Face rotationX={-180} rotationY={0}></Face>
+                <Face rotationX={-90} rotationY={0} color={cubeFace[0]}></Face>
+            </Cube>
+            <Cube>
+                <Face rotationX={0} rotationY={90} color={cubeFace[1]}></Face>
+            </Cube>
+            <Cube>
+                <Face rotationX={0} rotationY={0} color={cubeFace[2]}></Face>
             </Cube>
         </Visao>
     );
 }
-export default cuboMagico;
+export default CuboMagico;
