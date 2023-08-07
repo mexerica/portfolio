@@ -17,6 +17,7 @@ import loading from "../img/loading.gif";
 import win98 from "../img/win98.png";
 import XP from "../img/windowxp.jpeg";
 import Icon from "../img/XPicon.png";
+import cubo from "../img/cuboMagico.png";
 import chessIcon from "../img/chess.png";
 import Note from '../apps/notepad';
 import PDF from '../apps/pdf';
@@ -29,6 +30,7 @@ import CampoMinado from "../apps/campoMinado";
 import Internet from '../apps/internet';
 import Doom from '../apps/doom';
 import Chess from '../apps/chess';
+import Magico from '../apps/cubomagico';
 
 const Button = styled.div`
     width: 30px;
@@ -237,7 +239,7 @@ function Home() {
                 (app == "config") ? Configurations() :
                 (app == "doom") ? <Doom color={color}/> :
                 (app == "chess") ? <Chess color={color}/> :
-                <PDF/>
+                <Magico color={color}/>
             }
             {
                 (tarefas) ? BarradeTarefas() : <></>
@@ -256,6 +258,7 @@ function Home() {
                 <Img src={config} onClick={() => {setApp("config")}} alt="this is configurations" width={40} height={40}/>
                 <Img src={doom} onClick={() => {setApp("doom")}} alt="this is doom" width={40} height={40}/>
                 <Img src={chessIcon} onClick={() => {setApp("chess")}} alt="this is chess" width={40} height={40}/>
+                <Img src={cubo} onClick={() => {setApp("cubo")}} alt="this is rubik's cube" width={40} height={40}/>
             </Images>
         </AppDiv>
     );
