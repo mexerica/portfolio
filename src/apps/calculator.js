@@ -98,7 +98,7 @@ function Calc(color) {
                 <Buttons onClick={() => {setValue(setX,x,"=")}}><Red>=</Red></Buttons>
                 <Buttons onClick={() => {setValue(setX,x,"^")}}><Red>^</Red></Buttons>
                 <Buttons onClick={() => {setX(Number(x) / 100 * Number(result)).toFixed(2)}}><Red>%</Red></Buttons>
-                <Buttons onClick={() => {setX(Math.sqrt(x))}}><Red>Raiz</Red></Buttons>
+                <Buttons onClick={() => {setX(Math.sqrt(x))}}><Red>**</Red></Buttons>
                 <Buttons onClick={() => {setX(-x)}}><Red>+/-</Red></Buttons>
                 <Buttons onClick={() => {setX(1/x)}}><Red>1/x</Red></Buttons>
             </ButtonsCalc>
