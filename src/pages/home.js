@@ -238,8 +238,8 @@ function Home() {
                 (app == "internet") ? <Internet color={color}/> :
                 (app == "config") ? Configurations() :
                 (app == "doom") ? <Doom color={color}/> :
-                (app == "chess") ? <Chess color={color}/> :
-                <Magico color={color}/>
+                <Chess color={color}/> 
+                //<Magico color={color}/>
             }
             {
                 (tarefas) ? BarradeTarefas() : <></>
