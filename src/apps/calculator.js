@@ -11,17 +11,36 @@ const ButtonsCalc = styled.div`
     padding:55px;
 `
 const Buttons = styled.div`
-    width: 5px;
-    padding: 25px 40px;
-    text-align:center;
+    display: flex;
+    width: 1px;
+    padding: 20px;
     background-color: white;
     color: #0096ff;
     border: 2px solid black;
-    border-radius: 24px;
     appearance: none;
     cursor: pointer;
+    justify-content: center;
+    align-items: center;
     :hover {
         background-color: black;
+    }
+`
+
+const Answer = styled.div`
+    display: flex;
+    width: 1px;
+    padding: 20px;
+    background-color: red;
+    color: black;
+    border: 2px solid black;
+    appearance: none;
+    cursor: pointer;
+    grid-row: span 2;
+    justify-content: center;
+    align-items: center;
+    :hover {
+        background-color: black;
+        color: red;
     }
 `
 
@@ -32,10 +51,10 @@ const Red = styled.div`
 const Border = styled.div`
     position:relative;
     font-size: 40px;
-    top: -220px;
+    top: -190px;
     background-color:white;
     border: 2px solid black;
-    width: 450px;
+    width: 240px;
     height: 45px;
     color:black;
     text-align:right;
@@ -95,8 +114,8 @@ function Calc(color) {
                 <Buttons onClick={() => {setValue(setX, x, "0")}}>0</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, ".")}}>,</Buttons>
                 <Buttons onClick={() => {setValue(setX, x, "3.14")}}>PI</Buttons>
-                <Buttons onClick={() => {setValue(setX,x,"=")}}><Red>=</Red></Buttons>
                 <Buttons onClick={() => {setValue(setX,x,"^")}}><Red>^</Red></Buttons>
+                <Answer onClick={() => {setValue(setX,x,"=")}}>=</Answer>
                 <Buttons onClick={() => {setX(Number(x) / 100 * Number(result)).toFixed(2)}}><Red>%</Red></Buttons>
                 <Buttons onClick={() => {setX(Math.sqrt(x))}}><Red>**</Red></Buttons>
                 <Buttons onClick={() => {setX(-x)}}><Red>+/-</Red></Buttons>

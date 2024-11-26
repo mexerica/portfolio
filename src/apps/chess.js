@@ -15,12 +15,12 @@ const Board = styled.img`
 
 const BoardPieces = styled.div`
     position:absolute;
-    bottom: 130px;
+    bottom: 110px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 1px;
     @media screen and (max-width:800px;) {
-        bottom: 110px;
+        bottom: 100px;
     }
 `
 

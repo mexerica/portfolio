@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 import {useRef} from 'react';
-/*
-const Txt = styled.div`
-    position:fixed;
-    resize: none;
-    bottom: 80px;
-    border: 15px solid rgba(0,83,241,1);
-    background-color: #faf4e4;
-    padding: 10px;
-`*/
 
 const Txt = styled.textarea`
     position:fixed;
@@ -20,16 +11,10 @@ const Txt = styled.textarea`
     resize: none;
 `;
 
-const SaveBtn = styled.div`
+const TrueBtn = styled.div`
     position:fixed;
-    top: 75px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 5px;
-`
-
-const SearchBtn = styled.div`
-    position:fixed;
     bottom: 80px;
 `
 
@@ -53,11 +38,11 @@ function Note(color) {
     return (
         <>
             <Txt color={color.color} ref={ref} rows="30" cols="60" id="TITLE" placeholder="Write here."></Txt>
-            <SaveBtn>
+            <TrueBtn>
                 <button onClick={() =>{guardTxt()}}>Save</button>
+                <input type="file" accept='.txt' onChange={e => handleFileChosen(e.target.files[0])} />
                 <button onClick={() =>{ref.current.value =  ""}}>Clear</button>
-            </SaveBtn>
-            <SearchBtn><input type="file" accept='.txt' onChange={e => handleFileChosen(e.target.files[0])} /></SearchBtn>
+            </TrueBtn>
         </>
     );
 }

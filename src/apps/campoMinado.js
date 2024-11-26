@@ -19,7 +19,7 @@ const Back = styled.div`
 
 const Board = styled.div`
     position:fixed;
-    bottom: 110px;
+    top: 200px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 2px;
@@ -27,7 +27,7 @@ const Board = styled.div`
 
 const Smile = styled.div`
     position:fixed;
-    top: 110px;
+    top: 90px;
 `
 
 let notFinished = false;

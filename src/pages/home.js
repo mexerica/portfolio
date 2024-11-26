@@ -80,7 +80,7 @@ const ImagesTarefas = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 25px;
     left: 0px;
-    top: 350px;
+    top: 300px;
 `
 
 const Options = styled.div`
@@ -228,6 +228,9 @@ function Home() {
                 <Button onClick={() => {setTarefas(!tarefas)}} background={Icon}>Start</Button>
             </Bottom> 
             {
+                (tarefas) ? BarradeTarefas() : <></>
+            }
+            {
                 (app == "paint") ? <Paint color={color}/> :  
                 (app == "calc") ? <Calc color={color}/> :
                 (app == "clock") ? <Clock color={color}/> :  
@@ -240,9 +243,6 @@ function Home() {
                 (app == "doom") ? <Doom color={color}/> :
                 <Chess color={color}/> 
                 //<Magico color={color}/>
-            }
-            {
-                (tarefas) ? BarradeTarefas() : <></>
             }
             <Images>
                 <Img src={notepad} onClick={() => {setApp("note")}} alt="this is notepad" width={40} height={40}/>

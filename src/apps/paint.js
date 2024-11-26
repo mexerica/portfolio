@@ -10,7 +10,7 @@ const Quadro = styled.canvas`
 
 const PaintButtons = styled.div`
     position:fixed;
-    top:90px;
+    top:70px;
     display: grid;
     grid-template-columns: 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr 0.1fr;
     grid-gap: 2px;
